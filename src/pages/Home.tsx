@@ -120,9 +120,9 @@ const newsItems = [
   },
   {
     tag: "TOURNAMENT",
-    title: "NewEra Esports will participate in the Matcherino Tournament Series Skystars #2",
+    title: "NewEra Esports will participate in the Matcherino Tournament Series Skystars #1",
     date: "April 12, 2026",
-    img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&h=500&fit=crop"
+    img: "https://matcherino.com/_next/image?url=https%3A%2F%2Fcdn.matcherino.com%2F82f04ae8-1065-4bc7-a326-129785e8860e%2F-%2Fcrop%2F1536x865%2F0%2C80%2F-%2Fresize%2F800x450%2F&w=1920&q=75"
   },
   {
     tag: "ANNOUNCEMENT",
