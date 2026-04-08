@@ -26,19 +26,6 @@ function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
 
 const players = [
   {
-    tag: "Zabziro",
-    realName: "Mykhailo Hrybko",
-    role: "In-Game Leader",
-    country: "Ukraine",
-    flag: "\uD83C\uDDFA\uD83C\uDDE6",
-    trophies: "102,382",
-    favoriteBrawlers: ["Mico", "Kit", "Otis"],
-    bio: "The tag founder and team captain. He started his esports career in 2024 and led NewEra through the early monthly qualifiers.",
-    img: "/images/team/player-image3.png.png",
-    color: "rgb(0, 255, 135)",
-    position: "center top"
-  },
-  {
     tag: "sEt",
     realName: "Stanislav Dolbnya",
     role: "Player",
@@ -49,6 +36,19 @@ const players = [
     bio: "A flexible player who adapts to any draft and gives the team the freedom to switch styles mid-series.",
     img: "/images/team/player-image4.png",
     color: "rgba(168, 85, 247, 1)",
+    position: "center top"
+  },
+  {
+    tag: "Zabziro",
+    realName: "Mykhailo Hrybko",
+    role: "In-Game Leader",
+    country: "Ukraine",
+    flag: "\uD83C\uDDFA\uD83C\uDDE6",
+    trophies: "102,382",
+    favoriteBrawlers: ["Mico", "Kit", "Otis"],
+    bio: "The tag founder and team captain. He started his esports career in 2024 and led NewEra through the early monthly qualifiers.",
+    img: "/images/team/player-image3.png.png",
+    color: "rgb(0, 255, 135)",
     position: "center top"
   },
   {

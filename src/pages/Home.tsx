@@ -89,17 +89,17 @@ const achievements = [
 
 const players = [
   {
-    tag: "Zabziro",
-    role: "In-Game Leader",
-    trophies: "102,382",
-    img: "/images/team/player-image3.png.png",
-    position: "center top"
-  },
-  {
     tag: "sEt",
     role: "Player",
     trophies: "68,112",
     img: "/images/team/home-player-image6.png",
+    position: "center top"
+  },
+  {
+    tag: "Zabziro",
+    role: "In-Game Leader",
+    trophies: "102,382",
+    img: "/images/team/player-image3.png.png",
     position: "center top"
   },
   {
