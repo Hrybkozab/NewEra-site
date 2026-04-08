@@ -34,7 +34,7 @@ const players = [
     trophies: "68,112",
     favoriteBrawlers: ["Shade", "Bo", "Draco"],
     bio: "A flexible player who adapts to any draft and gives the team the freedom to switch styles mid-series.",
-    img: "/images/team/player-image4.png",
+    img: "/images/team/home-player-image6.png",
     color: "rgba(168, 85, 247, 1)",
     position: "center top"
   },
@@ -60,7 +60,7 @@ const players = [
     trophies: "76,392",
     favoriteBrawlers: ["Colt", "Piper", "Mortis"],
     bio: "Known for calm positioning and defensive awareness, he helps the roster stay stable during aggressive sets.",
-    img: "/images/team/player-image1.png.png",
+    img: "/images/team/home-player-image5.png",
     color: "rgba(59, 130, 246, 1)",
     position: "center top"
   }
