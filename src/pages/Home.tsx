@@ -114,20 +114,20 @@ const players = [
 const newsItems = [
   {
     tag: "ROSTER",
-    title: "NewEra signs new support player for the 2026 season",
-    date: "May 12, 2025",
+    title: "NewEra revives new roster for the 2026 season",
+    date: "February 27, 2026",
     img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&h=500&fit=crop"
   },
   {
     tag: "TOURNAMENT",
-    title: "Regional Championship recap - we took gold",
-    date: "April 28, 2025",
+    title: "NewEra Esports will participate in the Matcherino Tournament Series Skystars #2",
+    date: "April 12, 2026",
     img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&h=500&fit=crop"
   },
   {
     tag: "ANNOUNCEMENT",
-    title: "NewEra partners with GearUp for the season",
-    date: "April 5, 2025",
+    title: "NewEra declares for free partnerships and sponsorships",
+    date: "March 15, 2026",
     img: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800&h=500&fit=crop"
   }
 ];
