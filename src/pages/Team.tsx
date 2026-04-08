@@ -31,7 +31,7 @@ const players = [
     country: "Ukraine",
     flag: "🇺🇦",
     trophies: "102,250",
-    mainBrawler: "Mico",
+    favoriteBrawlers: ["Mico", "Kit", "Otis"],
     bio: "The tag founder and team captain. He started his esports career in 2024 and led NewEra through the early monthly qualifiers.",
     img: "/images/team/player-image3.png.png",
     color: "rgba(0, 255, 135, 1)",
@@ -44,7 +44,7 @@ const players = [
     country: "Ukraine",
     flag: "🇺🇦",
     trophies: "65,900",
-    mainBrawler: "Shade",
+    favoriteBrawlers: ["Shade", "Bo", "Draco"],
     bio: "A flexible player who adapts to any draft and gives the team the freedom to switch styles mid-series.",
     img: "/images/team/player-image4.png",
     color: "rgba(168, 85, 247, 1)",
@@ -57,7 +57,7 @@ const players = [
     country: "France",
     flag: "🇫🇷",
     trophies: "72,300",
-    mainBrawler: "Colt",
+    favoriteBrawlers: ["Colt", "Mortis", "Rico"],
     bio: "Known for calm positioning and defensive awareness, he helps the roster stay stable during aggressive sets.",
     img: "/images/team/player-image1.png.png",
     color: "rgba(59, 130, 246, 1)",
@@ -161,6 +161,17 @@ export default function Team() {
                     <div className="text-sm text-gray-400">Joined 27 February 2026</div>
                   </div>
                 </div>
+                <div className="mb-6 rounded-xl border border-white/10 bg-white/5 px-4 py-4">
+                  <div className="mb-3 text-sm font-bold text-white">Favorite brawlers:</div>
+                  <div className="space-y-2">
+                    {players[activePlayer].favoriteBrawlers.map((brawler) => (
+                      <div key={brawler} className="flex items-center gap-3 text-sm text-gray-300">
+                        <span className="h-3 w-3 rounded-full bg-white" />
+                        <span>{brawler}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
                 <p className="mb-8 leading-relaxed text-gray-400">{players[activePlayer].bio}</p>
 
                 <div className="flex flex-wrap items-center gap-3 text-sm text-gray-400">
@@ -226,12 +237,23 @@ export default function Team() {
                       <div className="text-sm text-gray-400">Joined 27 February 2026</div>
                     </div>
                   </div>
+                  <div className="mb-4 rounded-xl border border-white/10 bg-white/5 px-4 py-4">
+                    <div className="mb-3 text-sm font-bold text-white">Favorite brawlers:</div>
+                    <div className="space-y-2">
+                      {player.favoriteBrawlers.map((brawler) => (
+                        <div key={brawler} className="flex items-center gap-3 text-sm text-gray-300">
+                          <span className="h-3 w-3 rounded-full bg-white" />
+                          <span>{brawler}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm text-gray-500">
                       <Trophy size={13} className="text-[#00ff87]" />
                       <span>{player.trophies}</span>
                     </div>
-                    <span className="text-xs text-gray-600">{player.mainBrawler}</span>
+                    <span className="text-xs text-gray-600">{player.favoriteBrawlers.join(", ")}</span>
                   </div>
                 </div>
               </div>
