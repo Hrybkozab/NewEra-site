@@ -35,7 +35,7 @@ const players = [
     favoriteBrawlers: ["Mico", "Kit", "Otis"],
     bio: "The tag founder and team captain. He started his esports career in 2024 and led NewEra through the early monthly qualifiers.",
     img: "/images/team/player-image3.png.png",
-    color: "rgba(0, 255, 135, 1)",
+    color: "rgb(0, 255, 135)",
     position: "center top"
   },
   {
@@ -142,8 +142,8 @@ export default function Team() {
           </div>
 
           {players[activePlayer] && (
-            <div className="grid items-center gap-8 overflow-hidden rounded-3xl border border-white/10 bg-white/3 md:grid-cols-2">
-              <div className="relative h-80 min-h-[320px] md:h-full">
+            <div className="grid min-h-[720px] items-stretch gap-8 overflow-hidden rounded-3xl border border-white/10 bg-white/3 md:grid-cols-[minmax(0,480px)_1fr]">
+              <div className="relative h-80 min-h-[320px] md:h-[720px]">
                 <img
                   src={players[activePlayer].img}
                   alt={players[activePlayer].tag}
@@ -153,7 +153,7 @@ export default function Team() {
                 <div className="absolute inset-0 hidden bg-gradient-to-r from-transparent to-black/80 md:block" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent md:hidden" />
               </div>
-              <div className="p-8 md:p-10">
+              <div className="flex h-full flex-col justify-center p-8 md:p-10">
                 <div
                   className="mb-4 inline-block rounded-full px-3 py-1 text-xs font-bold"
                   style={{
