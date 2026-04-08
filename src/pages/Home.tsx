@@ -99,14 +99,14 @@ const players = [
     tag: "sEt",
     role: "Player",
     trophies: "68,112",
-    img: "/images/team/player-image4.png",
+    img: "/images/team/home-player-image6.png",
     position: "center top"
   },
   {
     tag: "Uzb3K1rOv",
     role: "Player",
     trophies: "76,392",
-    img: "/images/team/player-image1.png.png",
+    img: "/images/team/home-player-image5.png",
     position: "center top"
   }
 ];
