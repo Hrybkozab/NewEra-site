@@ -127,7 +127,7 @@ export default function About() {
                 {[
                   { icon: <Trophy size={14} />, text: "1 Trophy" },
                   { icon: <Users size={14} />, text: "7 Players" },
-                  { icon: <Target size={14} />, text: "4+ Tournaments" }
+                  { icon: <Target size={14} />, text: "12+ Tournaments" }
                 ].map((item) => (
                   <div
                     key={item.text}
