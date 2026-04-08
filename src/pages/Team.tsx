@@ -58,7 +58,7 @@ const players = [
     country: "France",
     flag: "\uD83C\uDDEB\uD83C\uDDF7",
     trophies: "76,392",
-    favoriteBrawlers: ["Colt", "Piper", "Rico"],
+    favoriteBrawlers: ["Colt", "Piper", "Mortis"],
     bio: "Known for calm positioning and defensive awareness, he helps the roster stay stable during aggressive sets.",
     img: "/images/team/player-image1.png.png",
     color: "rgba(59, 130, 246, 1)",
