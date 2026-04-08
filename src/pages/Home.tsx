@@ -116,7 +116,7 @@ const newsItems = [
     tag: "ROSTER",
     title: "NewEra revives new roster for the 2026 season",
     date: "February 27, 2026",
-    img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&h=500&fit=crop"
+    img: "https://d3jk55w6373teq.cloudfront.net/Feedpanel/Edito/Esport/bstars26.jpg"
   },
   {
     tag: "TOURNAMENT",
