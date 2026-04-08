@@ -293,9 +293,12 @@ export default function Home() {
                       <Trophy size={13} className="text-[#00ff87]" />
                       <span>{player.trophies} trophies</span>
                     </div>
-                    <Link to="/team" className="text-sm font-bold text-[#00ff87] transition-colors hover:text-white">
-                      View profile
-                    </Link>
+                      <Link
+                        to={`/team?player=${encodeURIComponent(player.tag)}`}
+                        className="text-sm font-bold text-[#00ff87] transition-colors hover:text-white"
+                      >
+                        View profile
+                      </Link>
                   </div>
                 </div>
               </div>

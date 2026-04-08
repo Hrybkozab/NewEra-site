@@ -1,5 +1,6 @@
-import { useRef, useState, useEffect, type RefObject } from "react";
-import { Trophy, Shield } from "lucide-react";
+import { useEffect, useRef, useState, type RefObject } from "react";
+import { useSearchParams } from "react-router-dom";
+import { Trophy } from "lucide-react";
 
 function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
   const [inView, setInView] = useState(false);
@@ -29,7 +30,7 @@ const players = [
     realName: "Mykhailo Hrybko",
     role: "In-Game Leader",
     country: "Ukraine",
-    flag: "🇺🇦",
+    flag: "\uD83C\uDDFA\uD83C\uDDE6",
     trophies: "102,250",
     favoriteBrawlers: ["Mico", "Kit", "Otis"],
     bio: "The tag founder and team captain. He started his esports career in 2024 and led NewEra through the early monthly qualifiers.",
@@ -42,7 +43,7 @@ const players = [
     realName: "Stanislav Dolbnya",
     role: "Player",
     country: "Ukraine",
-    flag: "🇺🇦",
+    flag: "\uD83C\uDDFA\uD83C\uDDE6",
     trophies: "65,900",
     favoriteBrawlers: ["Shade", "Bo", "Draco"],
     bio: "A flexible player who adapts to any draft and gives the team the freedom to switch styles mid-series.",
@@ -55,7 +56,7 @@ const players = [
     realName: "Alexandre Taychinov",
     role: "Player",
     country: "France",
-    flag: "🇫🇷",
+    flag: "\uD83C\uDDEB\uD83C\uDDF7",
     trophies: "72,300",
     favoriteBrawlers: ["Colt", "Mortis", "Rico"],
     bio: "Known for calm positioning and defensive awareness, he helps the roster stay stable during aggressive sets.",
@@ -68,7 +69,24 @@ const players = [
 export default function Team() {
   const playersRef = useRef<HTMLDivElement>(null);
   const playersInView = useInView(playersRef);
-  const [activePlayer, setActivePlayer] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const getPlayerIndex = (tag: string | null) => {
+    if (!tag) return 0;
+    const index = players.findIndex((player) => player.tag.toLowerCase() === tag.toLowerCase());
+    return index >= 0 ? index : 0;
+  };
+
+  const [activePlayer, setActivePlayer] = useState(() => getPlayerIndex(searchParams.get("player")));
+
+  useEffect(() => {
+    setActivePlayer(getPlayerIndex(searchParams.get("player")));
+  }, [searchParams]);
+
+  const selectPlayer = (index: number) => {
+    setActivePlayer(index);
+    setSearchParams({ player: players[index].tag });
+  };
 
   return (
     <div className="overflow-x-hidden bg-black text-white">
@@ -111,7 +129,7 @@ export default function Team() {
             {players.map((player, index) => (
               <button
                 key={player.tag}
-                onClick={() => setActivePlayer(index)}
+                onClick={() => selectPlayer(index)}
                 className={`rounded-full px-6 py-3 text-sm font-bold transition-all duration-300 ${
                   activePlayer === index
                     ? "scale-105 bg-[#00ff87] text-black"
@@ -153,8 +171,12 @@ export default function Team() {
                   <span className="font-semibold">{players[activePlayer].country}</span>
                 </div>
                 <div className="mb-6 flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-[#00ff87]">
-                    <Shield size={18} />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5">
+                    <img
+                      src="/images/brawl-stars-badge.svg"
+                      alt="Brawl Stars"
+                      className="h-8 w-8 object-contain"
+                    />
                   </div>
                   <div>
                     <div className="text-sm font-bold text-white">Brawl Stars</div>
@@ -178,7 +200,7 @@ export default function Team() {
                   <Trophy size={14} className="text-[#00ff87]" />
                   <span>{players[activePlayer].trophies} Trophies</span>
                   <span className="text-gray-700">•</span>
-                  <span>{players[activePlayer].mainBrawler}</span>
+                  <span>{players[activePlayer].favoriteBrawlers.join(", ")}</span>
                 </div>
               </div>
             </div>
@@ -200,7 +222,7 @@ export default function Team() {
                   playersInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                 }`}
                 style={{ transitionDelay: `${index * 150}ms` }}
-                onClick={() => setActivePlayer(index)}
+                onClick={() => selectPlayer(index)}
               >
                 <div className="relative h-56 overflow-hidden">
                   <img
@@ -229,8 +251,12 @@ export default function Team() {
                     <span className="font-semibold">{player.country}</span>
                   </div>
                   <div className="mb-4 flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-[#00ff87]">
-                      <Shield size={18} />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5">
+                      <img
+                        src="/images/brawl-stars-badge.svg"
+                        alt="Brawl Stars"
+                        className="h-8 w-8 object-contain"
+                      />
                     </div>
                     <div>
                       <div className="text-sm font-bold text-white">Brawl Stars</div>
