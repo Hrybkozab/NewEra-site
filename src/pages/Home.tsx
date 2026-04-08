@@ -304,7 +304,7 @@ export default function Home() {
                 }`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
-                <div className="relative h-56 overflow-hidden">
+                <div className="relative h-64 overflow-hidden">
                   <img
                     src={player.img}
                     alt={player.tag}
@@ -317,7 +317,7 @@ export default function Home() {
                     <p className="text-sm font-bold text-[#00ff87]">{player.role}</p>
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-7">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm text-gray-500">
                       <Trophy size={13} className="text-[#00ff87]" />
