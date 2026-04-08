@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, type RefObject } from "react";
-import { Trophy } from "lucide-react";
+import { Trophy, Shield } from "lucide-react";
 
 function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
   const [inView, setInView] = useState(false);
@@ -28,6 +28,8 @@ const players = [
     tag: "Zabziro",
     realName: "Mykhailo Hrybko",
     role: "In-Game Leader",
+    country: "Ukraine",
+    flag: "🇺🇦",
     trophies: "102,250",
     mainBrawler: "Mico",
     bio: "The tag founder and team captain. He started his esports career in 2024 and led NewEra through the early monthly qualifiers.",
@@ -39,6 +41,8 @@ const players = [
     tag: "sEt",
     realName: "Stanislav Dolbnya",
     role: "Player",
+    country: "Ukraine",
+    flag: "🇺🇦",
     trophies: "65,900",
     mainBrawler: "Shade",
     bio: "A flexible player who adapts to any draft and gives the team the freedom to switch styles mid-series.",
@@ -50,6 +54,8 @@ const players = [
     tag: "Uzb3K1rOv",
     realName: "Alexandre Taychinov",
     role: "Player",
+    country: "France",
+    flag: "🇫🇷",
     trophies: "72,300",
     mainBrawler: "Colt",
     bio: "Known for calm positioning and defensive awareness, he helps the roster stay stable during aggressive sets.",
@@ -142,6 +148,19 @@ export default function Team() {
                 </div>
                 <h2 className="mb-1 text-4xl font-black">{players[activePlayer].tag}</h2>
                 <p className="mb-6 text-sm text-gray-500">{players[activePlayer].realName}</p>
+                <div className="mb-4 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-gray-300">
+                  <span className="text-base">{players[activePlayer].flag}</span>
+                  <span className="font-semibold">{players[activePlayer].country}</span>
+                </div>
+                <div className="mb-6 flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-[#00ff87]">
+                    <Shield size={18} />
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-white">Brawl Stars</div>
+                    <div className="text-sm text-gray-400">Joined 27 February 2026</div>
+                  </div>
+                </div>
                 <p className="mb-8 leading-relaxed text-gray-400">{players[activePlayer].bio}</p>
 
                 <div className="flex flex-wrap items-center gap-3 text-sm text-gray-400">
@@ -194,6 +213,19 @@ export default function Team() {
                 <div className="p-6">
                   <h3 className="mb-1 text-xl font-black text-white">{player.tag}</h3>
                   <p className="mb-4 text-sm text-gray-500">{player.realName}</p>
+                  <div className="mb-4 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-gray-300">
+                    <span className="text-base">{player.flag}</span>
+                    <span className="font-semibold">{player.country}</span>
+                  </div>
+                  <div className="mb-4 flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-[#00ff87]">
+                      <Shield size={18} />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-white">Brawl Stars</div>
+                      <div className="text-sm text-gray-400">Joined 27 February 2026</div>
+                    </div>
+                  </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm text-gray-500">
                       <Trophy size={13} className="text-[#00ff87]" />
