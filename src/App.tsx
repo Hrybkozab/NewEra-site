@@ -42,10 +42,11 @@ function Navbar() {
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <Link to="/" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
-          <div className="relative flex h-10 w-10 items-center justify-center">
-            <div className="absolute inset-0 rotate-45 rounded-lg bg-[#00ff87] transition-transform duration-300 group-hover:rotate-[60deg]" />
-            <span className="relative z-10 text-sm font-black text-black">NE</span>
-          </div>
+          <img
+            src="/images/newera-logo.png"
+            alt="NewEra logo"
+            className="h-12 w-16 object-contain transition-transform duration-300 group-hover:scale-105"
+          />
           <div className="flex flex-col leading-none">
             <span className="text-lg font-black tracking-widest text-white">
               NEW<span className="text-[#00ff87]">ERA</span>
@@ -135,10 +136,11 @@ function Footer() {
         <div className="mb-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
             <div className="mb-4 flex items-center gap-3">
-              <div className="relative flex h-10 w-10 items-center justify-center">
-                <div className="absolute inset-0 rotate-45 rounded-lg bg-[#00ff87]" />
-                <span className="relative z-10 text-sm font-black text-black">NE</span>
-              </div>
+              <img
+                src="/images/newera-logo.png"
+                alt="NewEra logo"
+                className="h-12 w-16 object-contain"
+              />
               <div className="flex flex-col leading-none">
                 <span className="text-lg font-black tracking-widest text-white">
                   NEW<span className="text-[#00ff87]">ERA</span>

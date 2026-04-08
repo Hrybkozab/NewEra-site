@@ -143,9 +143,9 @@ export default function About() {
             <div className="relative">
               <div className="overflow-hidden rounded-2xl">
                 <img
-                  src="https://players-cdn.n2erp.co.nz/cdn/images/brands/new_era_logo_nz20240205111039.png"
+                  src="/images/newera-logo.png"
                   alt="NewEra logo"
-                  className="h-80 w-full object-cover md:h-96"
+                  className="h-80 w-full object-contain bg-black p-6 md:h-96"
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/40 to-transparent" />
               </div>
