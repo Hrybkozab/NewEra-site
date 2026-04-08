@@ -66,9 +66,9 @@ const stats = [
 const achievements = [
   {
     place: "1st",
-    tournament: "Brawl Stars Championship - Regional",
-    date: "March 2025",
-    prize: "$2,500",
+    tournament: "Time to Brawl Series #3",
+    date: "December 2024",
+    prize: "$1,500",
     color: "#FFD700"
   },
   {
