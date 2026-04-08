@@ -227,7 +227,7 @@ export default function Home() {
             />
           </div>
 
-          <div className="relative overflow-hidden border-y-2 border-black bg-[#facc15] py-3 text-black shadow-[0_-8px_30px_rgba(0,0,0,0.35)]">
+          <div className="relative overflow-hidden border-y-2 border-black bg-[#00ff87] py-3 text-black shadow-[0_-8px_30px_rgba(0,0,0,0.35)]">
             <div className="hero-marquee flex min-w-max items-center gap-10 whitespace-nowrap">
               {[0, 1].map((group) => (
                 <div key={group} className="flex items-center gap-10 pr-10">
