@@ -32,7 +32,8 @@ const players = [
     mainBrawler: "Mico",
     bio: "The tag founder and team captain. He started his esports career in 2024 and led NewEra through the early monthly qualifiers.",
     img: "/images/team/player-image3.png.png",
-    color: "rgba(0, 255, 135, 1)"
+    color: "rgba(0, 255, 135, 1)",
+    position: "center top"
   },
   {
     tag: "sEt",
@@ -42,7 +43,8 @@ const players = [
     mainBrawler: "Shade",
     bio: "A flexible player who adapts to any draft and gives the team the freedom to switch styles mid-series.",
     img: "/images/team/player-image4.png",
-    color: "rgba(168, 85, 247, 1)"
+    color: "rgba(168, 85, 247, 1)",
+    position: "center top"
   },
   {
     tag: "Uzb3K1rOv",
@@ -52,7 +54,8 @@ const players = [
     mainBrawler: "Colt",
     bio: "Known for calm positioning and defensive awareness, he helps the roster stay stable during aggressive sets.",
     img: "/images/team/player-image1.png.png",
-    color: "rgba(59, 130, 246, 1)"
+    color: "rgba(59, 130, 246, 1)",
+    position: "center top"
   }
 ];
 
@@ -121,6 +124,7 @@ export default function Team() {
                   src={players[activePlayer].img}
                   alt={players[activePlayer].tag}
                   className="h-full w-full object-cover"
+                  style={{ objectPosition: players[activePlayer].position }}
                 />
                 <div className="absolute inset-0 hidden bg-gradient-to-r from-transparent to-black/80 md:block" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent md:hidden" />
@@ -173,6 +177,7 @@ export default function Team() {
                     src={player.img}
                     alt={player.tag}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    style={{ objectPosition: player.position }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                   <div

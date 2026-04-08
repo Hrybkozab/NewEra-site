@@ -92,19 +92,22 @@ const players = [
     tag: "Zabziro",
     role: "In-Game Leader",
     trophies: "102,250",
-    img: "/images/team/player-image3.png.png"
+    img: "/images/team/player-image3.png.png",
+    position: "center top"
   },
   {
     tag: "sEt",
     role: "Player",
     trophies: "65,900",
-    img: "/images/team/player-image4.png"
+    img: "/images/team/player-image4.png",
+    position: "center top"
   },
   {
     tag: "Uzb3K1rOv",
     role: "Player",
     trophies: "72,300",
-    img: "/images/team/player-image1.png.png"
+    img: "/images/team/player-image1.png.png",
+    position: "center top"
   }
 ];
 
@@ -276,6 +279,7 @@ export default function Home() {
                     src={player.img}
                     alt={player.tag}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    style={{ objectPosition: player.position }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                   <div className="absolute bottom-4 left-4">
