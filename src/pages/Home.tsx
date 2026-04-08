@@ -58,7 +58,7 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 
 const stats = [
   { value: 12, suffix: "+", label: "Tournaments Played" },
-  { value: 8, suffix: "", label: "Trophies Won" },
+  { value: 1, suffix: "", label: "Trophy Won" },
   { value: 3, suffix: "", label: "Active Players" },
   { value: 98, suffix: "%", label: "Win Rate (Season)" }
 ];
