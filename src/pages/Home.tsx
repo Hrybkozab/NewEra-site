@@ -98,7 +98,7 @@ const players = [
     tag: "sEt",
     role: "Player",
     trophies: "65,900",
-    img: "/images/team/player-image2.png.png"
+    img: "/images/team/player-image4.png"
   },
   {
     tag: "Uzb3K1rOv",

@@ -41,7 +41,7 @@ const players = [
     trophies: "65,900",
     mainBrawler: "Shade",
     bio: "A flexible player who adapts to any draft and gives the team the freedom to switch styles mid-series.",
-    img: "/images/team/player-image2.png.png",
+    img: "/images/team/player-image4.png",
     color: "rgba(168, 85, 247, 1)"
   },
   {
