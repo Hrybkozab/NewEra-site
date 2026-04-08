@@ -68,6 +68,7 @@ const players = [
 
 export default function Team() {
   const playersRef = useRef<HTMLDivElement>(null);
+  const spotlightRef = useRef<HTMLDivElement>(null);
   const playersInView = useInView(playersRef);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -83,9 +84,15 @@ export default function Team() {
     setActivePlayer(getPlayerIndex(searchParams.get("player")));
   }, [searchParams]);
 
+  useEffect(() => {
+    if (!searchParams.get("player")) return;
+    spotlightRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
+  }, [activePlayer, searchParams]);
+
   const selectPlayer = (index: number) => {
     setActivePlayer(index);
     setSearchParams({ player: players[index].tag });
+    spotlightRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
   };
 
   return (
@@ -119,7 +126,7 @@ export default function Team() {
       </section>
 
       <section className="py-24 md:py-32">
-        <div className="mx-auto max-w-7xl px-6">
+        <div ref={spotlightRef} className="mx-auto max-w-7xl px-6">
           <div className="mb-12 text-center">
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#00ff87]">Player Spotlight</p>
             <h2 className="text-3xl font-black md:text-4xl">Select a Player</h2>
