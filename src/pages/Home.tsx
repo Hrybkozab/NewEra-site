@@ -132,6 +132,11 @@ const newsItems = [
   }
 ];
 
+const marqueeItems = Array.from({ length: 8 }, (_, index) => ({
+  id: index,
+  text: "WELCOME TO NEWERA"
+}));
+
 export default function Home() {
   const [typedText, setTypedText] = useState("");
   const fullText = "DOMINATE THE BRAWL";
@@ -157,7 +162,7 @@ export default function Home() {
 
   return (
     <div className="overflow-x-hidden bg-black text-white">
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-screen items-center justify-center overflow-hidden pb-28">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1600&h=900&fit=crop"
@@ -212,9 +217,34 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-xs tracking-widest text-gray-600">
-          <span>SCROLL</span>
-          <div className="h-12 w-px animate-pulse bg-gradient-to-b from-[#00ff87]/50 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0">
+          <div className="pointer-events-none absolute bottom-20 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.45em] text-gray-500">
+            <span>Scroll</span>
+            <img
+              src="/images/newera-logo.png"
+              alt="NewEra logo"
+              className="h-10 w-16 object-contain opacity-90"
+            />
+          </div>
+
+          <div className="relative overflow-hidden border-y-2 border-black bg-[#facc15] py-3 text-black shadow-[0_-8px_30px_rgba(0,0,0,0.35)]">
+            <div className="hero-marquee flex min-w-max items-center gap-10 whitespace-nowrap">
+              {[0, 1].map((group) => (
+                <div key={group} className="flex items-center gap-10 pr-10">
+                  {marqueeItems.map((item) => (
+                    <div key={`${group}-${item.id}`} className="flex items-center gap-4">
+                      <img
+                        src="/images/newera-logo.png"
+                        alt="NewEra logo"
+                        className="h-7 w-10 object-contain"
+                      />
+                      <span className="text-xl font-black uppercase tracking-wide">{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
