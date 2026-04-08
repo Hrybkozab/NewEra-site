@@ -1,4 +1,4 @@
-import { NavLink, Route, Routes, Link } from "react-router-dom";
+import { NavLink, Route, Routes, Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
   Menu,
@@ -21,6 +21,16 @@ const navLinks = [
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" }
 ];
+
+function ScrollToTop() {
+  const { pathname, search } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [pathname, search]);
+
+  return null;
+}
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -253,6 +263,7 @@ function Footer() {
 export default function App() {
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <main className="min-h-screen bg-black pt-20">
         <Routes>
