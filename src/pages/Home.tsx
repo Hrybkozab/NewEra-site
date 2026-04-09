@@ -6,6 +6,7 @@ function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
+    // Reusable helper for reveal-on-scroll sections across the landing page.
     if (typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -32,6 +33,7 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   useEffect(() => {
     if (!inView) return;
 
+    // Small count-up animation used for the stats row.
     let start = 0;
     const duration = 1500;
     const step = target / (duration / 16);
@@ -56,6 +58,7 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   );
 }
 
+// Home page cards use a lighter dataset than Team because only preview info is needed here.
 const stats = [
   { value: 12, suffix: "+", label: "Tournaments Played" },
   { value: 1, suffix: "", label: "Trophy Won" },
@@ -132,6 +135,7 @@ const newsItems = [
   }
 ];
 
+// Duplicated marquee items let the banner loop without visible gaps.
 const marqueeItems = Array.from({ length: 8 }, (_, index) => ({
   id: index,
   text: "WELCOME TO NEWERA"
@@ -150,6 +154,7 @@ export default function Home() {
   const newsInView = useInView(newsRef);
 
   useEffect(() => {
+    // Typewriter effect for the hero subtitle.
     let index = 0;
     const timer = window.setInterval(() => {
       setTypedText(fullText.slice(0, index + 1));
@@ -184,6 +189,7 @@ export default function Home() {
 
         <div className="pointer-events-none absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00ff87]/5 blur-3xl" />
 
+        {/* Main hero copy and CTA live above the background overlays. */}
         <div className="relative z-10 mx-auto max-w-7xl px-6 text-center">
           <div className="mb-8 inline-flex animate-pulse items-center gap-2 rounded-full border border-[#00ff87]/30 bg-[#00ff87]/10 px-4 py-2 text-xs font-bold uppercase tracking-widest text-[#00ff87]">
             <Zap size={12} />
@@ -217,6 +223,7 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Bottom ticker is inspired by the reference site and branded for NewEra. */}
         <div className="absolute inset-x-0 bottom-0">
           <div className="pointer-events-none absolute bottom-20 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.45em] text-gray-500">
             <span>Scroll</span>
@@ -295,6 +302,7 @@ export default function Home() {
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#00ff87]">The Roster</p>
             <h2 className="text-4xl font-black tracking-tight md:text-5xl">Meet Our Players</h2>
           </div>
+          {/* These cards are quick previews that deep-link into the Team page. */}
           <div ref={playersRef} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {players.map((player, index) => (
               <div

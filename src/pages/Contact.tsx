@@ -15,6 +15,7 @@ function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
+    // Used for lightweight scroll-in animations on the form and FAQ blocks.
     if (typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -33,6 +34,7 @@ function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
   return inView;
 }
 
+// Form options and FAQs live in arrays so the page content stays easy to edit.
 const contactTypes = [
   { value: "tryout", label: "Player Tryout" },
   { value: "sponsorship", label: "Sponsorship / Partnership" },
@@ -83,6 +85,7 @@ export default function Contact() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const handleSubmit = (event: FormEvent) => {
+    // The form is currently a UI mockup, so submit only switches to the success state.
     event.preventDefault();
     setSubmitted(true);
   };

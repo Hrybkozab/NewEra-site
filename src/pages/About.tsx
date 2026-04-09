@@ -6,6 +6,7 @@ function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
+    // This page uses the same pattern: reveal sections once they enter the viewport.
     if (typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -24,6 +25,7 @@ function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
   return inView;
 }
 
+// Content arrays keep page sections easy to reorder without rewriting JSX.
 const values = [
   {
     icon: <Target size={24} />,
@@ -105,6 +107,7 @@ export default function About() {
 
       <section className="py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-6">
+          {/* Mission block introduces the team story and brand summary. */}
           <div
             ref={missionRef}
             className={`grid items-center gap-16 transition-all duration-700 md:grid-cols-2 ${

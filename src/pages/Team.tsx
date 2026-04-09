@@ -6,6 +6,7 @@ function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
+    // Shared reveal helper for the roster grid near the bottom of the page.
     if (typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -24,6 +25,7 @@ function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
   return inView;
 }
 
+// Full player data used by both the spotlight card and the roster cards.
 const players = [
   {
     tag: "sEt",
@@ -68,11 +70,13 @@ const players = [
 
 export default function Team() {
   const playersRef = useRef<HTMLDivElement>(null);
+  // This ref is used so selecting a player always returns the user to the spotlight card.
   const spotlightRef = useRef<HTMLDivElement>(null);
   const playersInView = useInView(playersRef);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const getPlayerIndex = (tag: string | null) => {
+    // Query params let Home open Team with a specific player already selected.
     if (!tag) return 0;
     const index = players.findIndex((player) => player.tag.toLowerCase() === tag.toLowerCase());
     return index >= 0 ? index : 0;
@@ -85,11 +89,13 @@ export default function Team() {
   }, [searchParams]);
 
   useEffect(() => {
+    // When the selected player comes from the URL, jump directly to the spotlight section.
     if (!searchParams.get("player")) return;
     spotlightRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
   }, [activePlayer, searchParams]);
 
   const selectPlayer = (index: number) => {
+    // Keep component state and URL in sync so direct links still work.
     setActivePlayer(index);
     setSearchParams({ player: players[index].tag });
     spotlightRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
@@ -148,6 +154,7 @@ export default function Team() {
             ))}
           </div>
 
+          {/* Large spotlight card for the currently selected player. */}
           {players[activePlayer] && (
             <div className="grid min-h-[720px] items-stretch gap-8 overflow-hidden rounded-3xl border border-white/10 bg-white/3 md:grid-cols-[minmax(0,480px)_1fr]">
               <div className="relative h-80 min-h-[320px] md:h-[720px]">
@@ -221,6 +228,7 @@ export default function Team() {
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#00ff87]">Full Roster</p>
             <h2 className="text-4xl font-black tracking-tight md:text-5xl">All Players</h2>
           </div>
+          {/* Lower roster grid is mainly for browsing and re-selecting a player quickly. */}
           <div ref={playersRef} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {players.map((player, index) => (
               <div

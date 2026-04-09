@@ -15,6 +15,7 @@ import Team from "./pages/Team";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 
+// Centralized route labels are reused in both the header and footer navigation.
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/team", label: "Team" },
@@ -26,6 +27,7 @@ function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    // Reset scroll only when switching pages, not when query params change inside a page.
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [pathname]);
 
@@ -37,6 +39,7 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    // Navbar gets a stronger background after the user scrolls down.
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -263,8 +266,10 @@ function Footer() {
 export default function App() {
   return (
     <>
+      {/* Keeps navigation transitions feeling natural in a single-page app. */}
       <ScrollToTop />
       <Navbar />
+      {/* Every page is rendered inside the shared app shell below. */}
       <main className="min-h-screen bg-black pt-20">
         <Routes>
           <Route path="/" element={<Home />} />
