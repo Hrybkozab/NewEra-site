@@ -213,7 +213,7 @@ export default function Team() {
                 <div className="flex flex-wrap items-center gap-3 text-sm text-gray-400">
                   <Trophy size={14} className="text-[#00ff87]" />
                   <span>{players[activePlayer].trophies} Trophies</span>
-                  <span className="text-gray-700">•</span>
+                  <span className="text-gray-700">/</span>
                   <span>{players[activePlayer].favoriteBrawlers.join(", ")}</span>
                 </div>
               </div>
