@@ -81,3 +81,19 @@ button {
 .hero-marquee {
   animation: hero-marquee 24s linear infinite;
 }
+
+@keyframes team-player-title-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(90px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.team-player-title {
+  animation: team-player-title-enter 420ms ease-out;
+}

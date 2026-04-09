@@ -156,35 +156,55 @@ export default function Team() {
 
           {/* Large spotlight card for the currently selected player. */}
           {players[activePlayer] && (
-            <div className="grid min-h-[720px] items-stretch gap-8 overflow-hidden rounded-3xl border border-white/10 bg-white/3 md:grid-cols-[minmax(0,480px)_1fr]">
-              <div className="relative h-80 min-h-[320px] md:h-[720px]">
+            <div className="relative grid min-h-[640px] items-stretch gap-6 overflow-hidden rounded-3xl border border-white/10 bg-white/3 md:grid-cols-[minmax(0,420px)_1fr]">
+              <div
+                className="pointer-events-none absolute inset-0 opacity-[0.12]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
+                  backgroundSize: "48px 48px"
+                }}
+              />
+              <div
+                key={players[activePlayer].tag}
+                className="team-player-title pointer-events-none absolute left-0 top-8 hidden whitespace-nowrap text-[clamp(5rem,15vw,13rem)] font-black uppercase leading-none text-transparent opacity-100 md:block"
+                style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.22)" }}
+              >
+                {players[activePlayer].tag}
+              </div>
+              <div className="pointer-events-none absolute left-8 top-7 hidden text-[10px] font-bold uppercase tracking-[0.55em] text-white/70 md:block">
+                Brawl Stars
+              </div>
+              <div className="relative h-80 min-h-[320px] md:h-[640px]">
                 <img
                   src={players[activePlayer].img}
                   alt={players[activePlayer].tag}
                   className="h-full w-full object-cover"
                   style={{ objectPosition: players[activePlayer].position }}
                 />
-                <div className="absolute inset-0 hidden bg-gradient-to-r from-transparent to-black/80 md:block" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent md:hidden" />
               </div>
-              <div className="flex h-full flex-col justify-center p-8 md:p-10">
+              <div className="relative z-10 flex h-full flex-col justify-center p-7 md:p-8">
                 <div
-                  className="mb-4 inline-block rounded-full px-3 py-1 text-xs font-bold"
+                  className="mb-5 inline-block rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.18em]"
                   style={{
                     background: `${players[activePlayer].color}20`,
-                    color: players[activePlayer].color,
-                    border: `1px solid ${players[activePlayer].color}40`
+                    color: "#ffffff",
+                    border: `1px solid ${players[activePlayer].color}55`
                   }}
                 >
                   {players[activePlayer].role}
                 </div>
-                <h2 className="mb-1 text-4xl font-black">{players[activePlayer].tag}</h2>
-                <p className="mb-6 text-sm text-gray-500">{players[activePlayer].realName}</p>
+                <h2 className="mb-2 text-5xl font-black uppercase leading-none tracking-tight text-white md:text-7xl">
+                  {players[activePlayer].tag}
+                </h2>
+                <p className="mb-6 text-sm uppercase tracking-[0.28em] text-white/45">
+                  {players[activePlayer].realName}
+                </p>
                 <div className="mb-4 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-gray-300">
                   <span className="text-base">{players[activePlayer].flag}</span>
                   <span className="font-semibold">{players[activePlayer].country}</span>
                 </div>
-                <div className="mb-6 flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                <div className="mb-5 flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5">
                     <img
                       src="/images/brawl-stars-badge.png"
@@ -197,7 +217,7 @@ export default function Team() {
                     <div className="text-sm text-gray-400">Joined 27 February 2026</div>
                   </div>
                 </div>
-                <div className="mb-6 rounded-xl border border-white/10 bg-white/5 px-4 py-4">
+                <div className="mb-5 rounded-xl border border-white/10 bg-white/5 px-4 py-4">
                   <div className="mb-3 text-sm font-bold text-white">Favorite brawlers:</div>
                   <div className="space-y-2">
                     {players[activePlayer].favoriteBrawlers.map((brawler) => (
@@ -208,7 +228,7 @@ export default function Team() {
                     ))}
                   </div>
                 </div>
-                <p className="mb-8 leading-relaxed text-gray-400">{players[activePlayer].bio}</p>
+                <p className="mb-7 max-w-xl leading-relaxed text-gray-400">{players[activePlayer].bio}</p>
 
                 <div className="flex flex-wrap items-center gap-3 text-sm text-gray-400">
                   <Trophy size={14} className="text-[#00ff87]" />
