@@ -50,7 +50,7 @@ a,
 button {
   transition-property: color, background-color, border-color, transform, opacity, box-shadow;
   transition-duration: 200ms;
-  transition-timing-function: ease-out;
+  transition-timing-function: ease-out; 
 }
 
 @keyframes glow-pulse {

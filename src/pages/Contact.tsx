@@ -319,7 +319,7 @@ export default function Contact() {
                 <button
                   className="flex min-h-[44px] w-full items-center justify-between p-6 text-left"
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                >
+>
                   <span className="pr-4 font-bold text-white">{faq.q}</span>
                   <span className="flex-shrink-0 text-[#00ff87]">{openFaq === index ? "-" : "+"}</span>
                 </button>

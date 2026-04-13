@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Trophy, Zap } from "lucide-react";
+import { newsStories } from "./newsData";
 
 function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
   const [inView, setInView] = useState(false);
@@ -58,7 +59,6 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   );
 }
 
-// Home page cards use a lighter dataset than Team because only preview info is needed here.
 const stats = [
   { value: 12, suffix: "+", label: "Tournaments Played" },
   { value: 1, suffix: "", label: "Trophy Won" },
@@ -114,28 +114,6 @@ const players = [
   }
 ];
 
-const newsItems = [
-  {
-    tag: "ROSTER",
-    title: "NewEra revives new roster for the 2026 season",
-    date: "February 27, 2026",
-    img: "https://d3jk55w6373teq.cloudfront.net/Feedpanel/Edito/Esport/bstars26.jpg"
-  },
-  {
-    tag: "TOURNAMENT",
-    title: "NewEra Esports will participate in the Matcherino Tournament Series Skystars #1",
-    date: "April 12, 2026",
-    img: "https://matcherino.com/_next/image?url=https%3A%2F%2Fcdn.matcherino.com%2F82f04ae8-1065-4bc7-a326-129785e8860e%2F-%2Fcrop%2F1536x865%2F0%2C80%2F-%2Fresize%2F800x450%2F&w=1920&q=75"
-  },
-  {
-    tag: "ANNOUNCEMENT",
-    title: "NewEra declares for free partnerships and sponsorships",
-    date: "March 15, 2026",
-    img: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800&h=500&fit=crop"
-  }
-];
-
-// Duplicated marquee items let the banner loop without visible gaps.
 const marqueeItems = Array.from({ length: 8 }, (_, index) => ({
   id: index,
   text: "WELCOME TO NEWERA"
@@ -189,7 +167,6 @@ export default function Home() {
 
         <div className="pointer-events-none absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00ff87]/5 blur-3xl" />
 
-        {/* Main hero copy and CTA live above the background overlays. */}
         <div className="relative z-10 mx-auto max-w-7xl px-6 text-center">
           <div className="mb-8 inline-flex animate-pulse items-center gap-2 rounded-full border border-[#00ff87]/30 bg-[#00ff87]/10 px-4 py-2 text-xs font-bold uppercase tracking-widest text-[#00ff87]">
             <Zap size={12} />
@@ -215,15 +192,13 @@ export default function Home() {
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               to="/team"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#00ff87] px-8 py-4 text-sm font-black tracking-wide text-black shadow-lg shadow-[#00ff87]/30 transition-all duration-300 hover:scale-105 hover:bg-white"
-            >
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#00ff87] px-8 py-4 text-sm font-black tracking-wide text-black shadow-lg shadow-[#00ff87]/30 transition-all duration-300 hover:scale-105 hover:bg-white">
               Meet The Team
               <ArrowRight size={16} />
             </Link>
           </div>
         </div>
 
-        {/* Bottom ticker is inspired by the reference site and branded for NewEra. */}
         <div className="absolute inset-x-0 bottom-0">
           <div className="pointer-events-none absolute bottom-20 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.45em] text-gray-500">
             <span>Scroll</span>
@@ -302,7 +277,6 @@ export default function Home() {
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#00ff87]">The Roster</p>
             <h2 className="text-4xl font-black tracking-tight md:text-5xl">Meet Our Players</h2>
           </div>
-          {/* These cards are quick previews that deep-link into the Team page. */}
           <div ref={playersRef} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {players.map((player, index) => (
               <div
@@ -310,8 +284,7 @@ export default function Home() {
                 className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-white/3 transition-all duration-500 hover:-translate-y-2 hover:border-[#00ff87]/40 ${
                   playersInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                 }`}
-                style={{ transitionDelay: `${index * 150}ms` }}
-              >
+                style={{ transitionDelay: `${index * 150}ms` }}>
                 <div className="relative h-64 overflow-hidden">
                   <img
                     src={player.img}
@@ -331,12 +304,11 @@ export default function Home() {
                       <Trophy size={13} className="text-[#00ff87]" />
                       <span>{player.trophies} trophies</span>
                     </div>
-                      <Link
-                        to={`/team?player=${encodeURIComponent(player.tag)}`}
-                        className="text-sm font-bold text-[#00ff87] transition-colors hover:text-white"
-                      >
-                        View profile
-                      </Link>
+                    <Link
+                      to={`/team?player=${encodeURIComponent(player.tag)}`}
+                      className="text-sm font-bold text-[#00ff87] transition-colors hover:text-white">
+                      View profile
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -354,8 +326,7 @@ export default function Home() {
                 className={`rounded-2xl border border-white/10 bg-white/3 p-8 text-center transition-all duration-500 hover:border-[#00ff87]/30 ${
                   statsInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                 }`}
-                style={{ transitionDelay: `${index * 120}ms` }}
-              >
+                style={{ transitionDelay: `${index * 120}ms` }}>
                 <div className="mb-3 text-4xl font-black text-[#00ff87] md:text-5xl">
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 </div>
@@ -379,8 +350,7 @@ export default function Home() {
                 className={`relative overflow-hidden rounded-2xl border border-white/10 bg-white/3 p-8 transition-all duration-500 hover:-translate-y-2 hover:border-white/20 ${
                   achievementsInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                 }`}
-                style={{ transitionDelay: `${index * 140}ms` }}
-              >
+                style={{ transitionDelay: `${index * 140}ms` }}>
                 <div className="absolute top-0 left-0 h-1 w-full" style={{ background: achievement.color }} />
                 <div className="mb-4 text-5xl font-black" style={{ color: achievement.color }}>
                   {achievement.place}
@@ -402,25 +372,23 @@ export default function Home() {
               <h2 className="text-4xl font-black md:text-5xl">Updates from NewEra</h2>
             </div>
             <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 font-bold text-[#00ff87] transition-all duration-300 hover:gap-4"
-            >
-              Work with us <ArrowRight size={16} />
+              to="/news"
+              className="inline-flex items-center gap-2 font-bold text-[#00ff87] transition-all duration-300 hover:gap-4">
+              Open all news <ArrowRight size={16} />
             </Link>
           </div>
 
           <div ref={newsRef} className="grid gap-6 md:grid-cols-3">
-            {newsItems.map((item, index) => (
+            {newsStories.map((item, index) => (
               <article
-                key={item.title}
+                key={item.slug}
                 className={`group overflow-hidden rounded-2xl border border-white/10 bg-white/3 transition-all duration-500 hover:border-white/20 ${
                   newsInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                 }`}
-                style={{ transitionDelay: `${index * 150}ms` }}
-              >
+                style={{ transitionDelay: `${index * 150}ms` }}>
                 <div className="relative h-56 overflow-hidden">
                   <img
-                    src={item.img}
+                    src={item.image}
                     alt={item.title}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -434,10 +402,13 @@ export default function Home() {
                   <h3 className="mb-4 text-xl font-black leading-tight transition-colors group-hover:text-[#00ff87]">
                     {item.title}
                   </h3>
-                  <button className="flex items-center gap-2 text-sm font-bold text-[#00ff87] transition-all duration-300 hover:gap-4">
+                  <Link
+                    to={`/news/${item.slug}`}
+                    className="inline-flex items-center gap-2 text-sm font-bold text-[#00ff87] transition-all duration-300 hover:gap-4"
+                  >
                     Read More
                     <ArrowRight size={14} />
-                  </button>
+                  </Link>
                 </div>
               </article>
             ))}
