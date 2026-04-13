@@ -55,20 +55,12 @@ function Navbar() {
       }`}
     >
       <div className="flex h-20 w-full items-center justify-between px-3 sm:px-4 lg:px-6">
-        <Link to="/" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
+        <Link to="/" className="group flex items-center" onClick={() => setOpen(false)}>
           <img
             src="/images/newera-logo.png"
             alt="NewEra logo"
             className="h-12 w-16 object-contain transition-transform duration-300 group-hover:scale-105"
           />
-          <div className="flex flex-col leading-none">
-            <span className="text-lg font-black tracking-widest text-white">
-              NEW<span className="text-[#00ff87]">ERA</span>
-            </span>
-            <span className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#00ff87]/60">
-              Brawl Stars
-            </span>
-          </div>
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">
@@ -149,20 +141,12 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
-            <div className="mb-4 flex items-center gap-3">
+            <div className="mb-4 flex items-center">
               <img
                 src="/images/newera-logo.png"
                 alt="NewEra logo"
                 className="h-12 w-16 object-contain"
               />
-              <div className="flex flex-col leading-none">
-                <span className="text-lg font-black tracking-widest text-white">
-                  NEW<span className="text-[#00ff87]">ERA</span>
-                </span>
-                <span className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#00ff87]/60">
-                  Brawl Stars
-                </span>
-              </div>
             </div>
             <p className="text-sm leading-relaxed text-gray-500">
               Competing at the highest level of Brawl Stars. Representing the next generation of esports.
@@ -284,6 +268,8 @@ export default function App() {
     </>
   );
 }
+
+
 
 
 
