@@ -36,7 +36,7 @@ const players = [
     trophies: "68,112",
     favoriteBrawlers: ["Shade", "Bo", "Draco"],
     bio: "A flexible player who adapts to any draft and gives the team the freedom to switch styles mid-series.",
-    img: "/images/team/brawler-draco.png",
+    img: "/images/team/facegrey.png",
     color: "rgba(168, 85, 247, 1)",
     position: "center center"
   },
@@ -49,7 +49,7 @@ const players = [
     trophies: "102,382",
     favoriteBrawlers: ["Mico", "Kit", "Otis"],
     bio: "The tag founder and team captain. He started his esports career in 2024 and led NewEra through the early monthly qualifiers.",
-    img: "/images/team/brawler-mico.png",
+    img: "/images/team/facegrey.png",
     color: "rgb(0, 255, 135)",
     position: "center center"
   },
@@ -62,7 +62,7 @@ const players = [
     trophies: "76,392",
     favoriteBrawlers: ["Colt", "Piper", "Mortis"],
     bio: "Known for calm positioning and defensive awareness, he helps the roster stay stable during aggressive sets.",
-    img: "/images/team/brawler-colt.png",
+    img: "/images/team/facegrey.png",
     color: "rgba(59, 130, 246, 1)",
     position: "center center"
   }
@@ -156,7 +156,7 @@ export default function Team() {
 
           {/* Large spotlight card for the currently selected player. */}
           {players[activePlayer] && (
-            <div className="relative grid min-h-[640px] items-stretch gap-6 overflow-hidden rounded-3xl border border-white/10 bg-white/3 md:grid-cols-[minmax(0,420px)_1fr]">
+            <div className="relative grid min-h-[520px] items-stretch gap-4 overflow-hidden rounded-3xl border border-white/10 bg-white/3 md:grid-cols-[minmax(260px,340px)_1fr]">
               <div
                 className="pointer-events-none absolute inset-0 opacity-[0.12]"
                 style={{
@@ -175,17 +175,17 @@ export default function Team() {
               <div className="pointer-events-none absolute left-8 top-7 hidden text-[10px] font-bold uppercase tracking-[0.55em] text-white/70 md:block">
                 Brawl Stars
               </div>
-              <div className="relative h-80 min-h-[320px] md:h-[640px]">
+              <div className="relative flex h-72 min-h-[280px] items-end justify-start overflow-hidden md:h-[520px]">
                 <img
                   src={players[activePlayer].img}
                   alt={players[activePlayer].tag}
-                  className="h-full w-full object-cover"
+                  className="h-[82%] w-auto max-w-none object-contain md:h-[86%]"
                   style={{ objectPosition: players[activePlayer].position }}
                 />
               </div>
-              <div className="relative z-10 flex h-full flex-col justify-center p-7 md:p-8">
+              <div className="relative z-10 flex h-full flex-col justify-center p-6 md:p-7">
                 <div
-                  className="mb-5 inline-block rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.18em]"
+                  className="mb-4 inline-block rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em]"
                   style={{
                     background: `${players[activePlayer].color}20`,
                     color: "#ffffff",
@@ -194,17 +194,17 @@ export default function Team() {
                 >
                   {players[activePlayer].role}
                 </div>
-                <h2 className="mb-2 text-5xl font-black uppercase leading-none tracking-tight text-white md:text-7xl">
+                <h2 className="mb-2 text-4xl font-black uppercase leading-none tracking-tight text-white md:text-6xl">
                   {players[activePlayer].tag}
                 </h2>
-                <p className="mb-6 text-sm uppercase tracking-[0.28em] text-white/45">
+                <p className="mb-5 text-xs uppercase tracking-[0.32em] text-white/45 md:text-sm">
                   {players[activePlayer].realName}
                 </p>
                 <div className="mb-4 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-gray-300">
                   <span className="text-base">{players[activePlayer].flag}</span>
                   <span className="font-semibold">{players[activePlayer].country}</span>
                 </div>
-                <div className="mb-5 flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                <div className="mb-4 flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5">
                     <img
                       src="/images/brawl-stars-badge.png"
@@ -217,7 +217,7 @@ export default function Team() {
                     <div className="text-sm text-gray-400">Joined 27 February 2026</div>
                   </div>
                 </div>
-                <div className="mb-5 rounded-xl border border-white/10 bg-white/5 px-4 py-4">
+                <div className="mb-4 rounded-xl border border-white/10 bg-white/5 px-4 py-4">
                   <div className="mb-3 text-sm font-bold text-white">Favorite brawlers:</div>
                   <div className="space-y-2">
                     {players[activePlayer].favoriteBrawlers.map((brawler) => (
@@ -228,7 +228,7 @@ export default function Team() {
                     ))}
                   </div>
                 </div>
-                <p className="mb-7 max-w-xl leading-relaxed text-gray-400">{players[activePlayer].bio}</p>
+                <p className="mb-6 max-w-xl leading-relaxed text-gray-400">{players[activePlayer].bio}</p>
 
                 <div className="flex flex-wrap items-center gap-3 text-sm text-gray-400">
                   <Trophy size={14} className="text-[#00ff87]" />

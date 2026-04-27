@@ -165,10 +165,9 @@ export default function News() {
             ))}
           </div>
         </div>
-      </section>`r`n    
+      </section>
     </div>
   );
 }
-
 
 
