@@ -72,14 +72,14 @@ const achievements = [
     tournament: "Time to Brawl Series #3",
     date: "December 2024",
     prize: "$1,500",
-    color: "#FFD700"
+    color: "#ffd700"
   },
   {
-    place: "2nd",
+    place: "1st",
     tournament: "EsportsOne Open Cup",
     date: "January 2025",
     prize: "$1,200",
-    color: "#C0C0C0"
+    color: "#ffd700"
   },
   {
     place: "1st",
@@ -95,22 +95,22 @@ const players = [
     tag: "sEt",
     role: "Player",
     trophies: "68,112",
-    img: "/images/team/home-player-image6.png",
-    position: "center top"
+    img: "/images/team/brawler-draco.png",
+    position: "center center"
   },
   {
     tag: "Zabziro",
     role: "In-Game Leader",
     trophies: "102,382",
-    img: "/images/team/player-image3.png.png",
-    position: "center top"
+    img: "/images/team/brawler-mico.png",
+    position: "center center"
   },
   {
     tag: "Uzb3K1rOv",
     role: "Player",
     trophies: "76,392",
-    img: "/images/team/home-player-image5.png",
-    position: "center top"
+    img: "/images/team/brawler-colt.png",
+    position: "center center"
   }
 ];
 

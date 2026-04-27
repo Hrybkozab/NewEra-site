@@ -36,9 +36,9 @@ const players = [
     trophies: "68,112",
     favoriteBrawlers: ["Shade", "Bo", "Draco"],
     bio: "A flexible player who adapts to any draft and gives the team the freedom to switch styles mid-series.",
-    img: "/images/team/home-player-image6.png",
+    img: "/images/team/brawler-draco.png",
     color: "rgba(168, 85, 247, 1)",
-    position: "center top"
+    position: "center center"
   },
   {
     tag: "Zabziro",
@@ -49,9 +49,9 @@ const players = [
     trophies: "102,382",
     favoriteBrawlers: ["Mico", "Kit", "Otis"],
     bio: "The tag founder and team captain. He started his esports career in 2024 and led NewEra through the early monthly qualifiers.",
-    img: "/images/team/player-image3.png.png",
+    img: "/images/team/brawler-mico.png",
     color: "rgb(0, 255, 135)",
-    position: "center top"
+    position: "center center"
   },
   {
     tag: "Uzb3K1rOv",
@@ -62,9 +62,9 @@ const players = [
     trophies: "76,392",
     favoriteBrawlers: ["Colt", "Piper", "Mortis"],
     bio: "Known for calm positioning and defensive awareness, he helps the roster stay stable during aggressive sets.",
-    img: "/images/team/home-player-image5.png",
+    img: "/images/team/brawler-colt.png",
     color: "rgba(59, 130, 246, 1)",
-    position: "center top"
+    position: "center center"
   }
 ];
 
