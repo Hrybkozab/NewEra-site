@@ -57,11 +57,11 @@ export default function NewsArticle() {
             <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-gray-300">
               {story.category}
             </span>
-          </div>
+          </div>  
           <p className="mb-5 flex items-center gap-2 text-sm uppercase tracking-wider text-gray-400">
             <CalendarDays size={15} className="text-[#00ff87]" />
-            {story.date}
-          </p>
+            {story.date} 
+          </p>*
           <h1 className="mb-6 max-w-4xl text-4xl font-black leading-tight md:text-6xl">{story.title}</h1>
           <p className="max-w-3xl text-lg leading-relaxed text-gray-300">{story.lead}</p>
         </div>

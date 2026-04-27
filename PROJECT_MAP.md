@@ -18,7 +18,7 @@
 - `src/pages/Home.tsx`
   Main landing page.
   Contains:
-  - hero section
+  - Main information
   - running marquee banner
   - player preview cards
   - stats
@@ -28,7 +28,7 @@
 - `src/pages/Team.tsx`
   Team page.
   Contains:
-  - big selected player card
+  - selected player card
   - player switch buttons
   - roster grid
   - sync between selected player and URL query
@@ -48,6 +48,34 @@
   - Discord block
   - socials
   - FAQ
+
+- `src/pages/News.tsx`
+  News page.
+  Contains:
+  - News block
+  - Information
+  - new stories in news
+
+- `src/pages/newsData.tsx`
+  NewsData.
+  Contains:
+  -  Place where you can add, remove or edit news
+
+- `src/pages/newsArticle.tsx`
+  NewsArticle.
+  Contains:
+  - article loading by `slug` from URL
+  - fallback block if article is not found
+  - hero section with article image, tag, category and date
+  - main article content
+  - highlights block
+  - stat block
+  - related posts sidebar
+
+- `src/pages/BackToTopButton.tsx`
+  TopButton page.
+  Contains:
+  - Mechanic where button goes to top
 
 ## Styles
 
