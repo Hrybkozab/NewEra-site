@@ -81,7 +81,7 @@ function Navbar() {
             </NavLink>
           ))}
           <a
-            href="https://discord.gg/jW5Tg53V"
+            href="https://discord.gg/rGVVdZF8"
             target="_blank"
             rel="noopener noreferrer"
             className="ml-4 flex items-center gap-2 rounded-full bg-[#00ff87] px-5 py-2 text-sm font-bold text-black transition-all duration-200 hover:scale-105 hover:bg-[#00ff87]/90"
@@ -208,23 +208,23 @@ function Footer() {
                 <span className="mb-1 block text-xs uppercase tracking-wider text-[#00ff87]/70">
                   Partnerships
                 </span>
-                <span>partnerships@newera.gg</span>
+                <span>partnershipsnewera@gmail.com</span>
               </li>
               <li>
                 <span className="mb-1 block text-xs uppercase tracking-wider text-[#00ff87]/70">
                   Tryouts
                 </span>
-                <span>tryouts@newera.gg</span>
+                <span>tryoutsnewera@gmail.com</span>
               </li>
               <li>
                 <span className="mb-1 block text-xs uppercase tracking-wider text-[#00ff87]/70">
                   General
                 </span>
-                <span>hello@newera.gg</span>
+                <span>genenewera@gmail.com</span>
               </li>
             </ul>
             <a
-              href="https://discord.gg/jW5Tg53V"
+              href="https://discord.gg/rGVVdZF8"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#00ff87]/30 bg-[#00ff87]/10 px-4 py-2 text-xs font-bold text-[#00ff87] transition-all hover:bg-[#00ff87]/20"

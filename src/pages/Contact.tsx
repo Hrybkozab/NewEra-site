@@ -38,9 +38,14 @@ function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
 const contactTypes = [
   { value: "tryout", label: "Player Tryout" },
   { value: "sponsorship", label: "Sponsorship / Partnership" },
-  { value: "media", label: "Media Inquiry" },
   { value: "general", label: "General Question" }
 ];
+
+const inquiryForms: Record<string, string> = {
+  tryout: "contact-tryout",
+  sponsorship: "contact-sponsorship",
+  general: "contact-general"
+};
 
 const socials = [
   { icon: <Globe size={20} />, label: "Twitter / X", handle: "@NewEraGG", href: "#" },
@@ -56,7 +61,7 @@ const faqs = [
   },
   {
     q: "Are you looking for sponsors?",
-    a: "Yes. We are open to partnerships with brands that align with our values. Reach out via the form or email partnerships@newera.gg."
+    a: "Yes. We are open to partnerships with brands that align with our values. Reach out via the form or email partnershipsnewera@gmail.com."
   },
   {
     q: "How can I support the team?",
@@ -68,26 +73,142 @@ const faqs = [
   }
 ];
 
+type FormDataState = {
+  name: string;
+  email: string;
+  type: string;
+  tag: string;
+  message: string;
+};
+
+type FormErrors = Partial<Record<keyof FormDataState, string>>;
+
+const initialFormData: FormDataState = {
+  name: "",
+  email: "",
+  type: "general",
+  tag: "",
+  message: ""
+};
+
+function validateForm(formData: FormDataState): FormErrors {
+  const errors: FormErrors = {};
+
+  if (formData.name.trim().length < 2) {
+    errors.name = "Please enter at least 2 characters for your name.";
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+    errors.email = "Please enter a valid email address.";
+  }
+
+  if (formData.type === "tryout" && !/^#?[A-Za-z0-9]{3,}$/.test(formData.tag.trim())) {
+    errors.tag = "Please enter a valid in-game tag for the tryout request.";
+  }
+
+  if (formData.message.trim().length < 20) {
+    errors.message = "Your message should be at least 20 characters long.";
+  }
+
+  return errors;
+}
+
 export default function Contact() {
   const formRef = useRef<HTMLDivElement>(null);
   const faqRef = useRef<HTMLDivElement>(null);
   const formInView = useInView(formRef);
   const faqInView = useInView(faqRef);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    type: "general",
-    tag: "",
-    message: ""
-  });
+  const [formData, setFormData] = useState<FormDataState>(initialFormData);
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [hasTriedSubmit, setHasTriedSubmit] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submittedInPreview, setSubmittedInPreview] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const handleSubmit = (event: FormEvent) => {
-    // The form is currently a UI mockup, so submit only switches to the success state.
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    setSubmitted(true);
+    setHasTriedSubmit(true);
+    setSubmitError("");
+
+    const errors = validateForm(formData);
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+
+    const typeLabel =
+      contactTypes.find((item) => item.value === formData.type)?.label || "General Question";
+    const formName = inquiryForms[formData.type] || inquiryForms.general;
+    const payload = new URLSearchParams();
+
+    payload.append("form-name", formName);
+    payload.append("name", formData.name.trim());
+    payload.append("email", formData.email.trim());
+    payload.append("inquiryType", typeLabel);
+    payload.append("message", formData.message.trim());
+
+    if (formData.type === "tryout") {
+      payload.append("tag", formData.tag.trim());
+    }
+
+    const isLocalPreview =
+      window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+
+    if (isLocalPreview) {
+      setSubmittedInPreview(true);
+      setSubmitted(true);
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+
+      const response = await fetch("/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: payload.toString()
+      });
+
+      if (!response.ok) {
+        throw new Error("Could not send the form.");
+      }
+
+      setSubmitted(true);
+    } catch {
+      setSubmitError("The form could not be sent right now. Please try again in a moment.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const updateField = (field: keyof FormDataState, value: string) => {
+    const nextFormData = { ...formData, [field]: value };
+
+    if (field === "type" && value !== "tryout") {
+      nextFormData.tag = "";
+    }
+
+    setFormData(nextFormData);
+
+    if (hasTriedSubmit) {
+      setFormErrors(validateForm(nextFormData));
+    }
+  };
+
+  const getFieldClassName = (field: keyof FormDataState) => {
+    const hasError = Boolean(formErrors[field]) && hasTriedSubmit;
+
+    return `w-full rounded-xl border px-4 py-3 text-sm text-white placeholder-gray-600 transition-all focus:outline-none ${
+      hasError
+        ? "border-red-500/60 bg-red-500/10 focus:border-red-400"
+        : "border-white/10 bg-white/5 focus:border-[#00ff87]/50 focus:bg-[#00ff87]/5"
+    }`;
   };
 
   return (
@@ -115,7 +236,7 @@ export default function Contact() {
             Contact <span className="text-[#00ff87]">Us</span>
           </h1>
           <p className="mx-auto max-w-2xl text-lg text-gray-400">
-            Tryouts, partnerships, media, or just saying hi - we read every message and respond to all serious inquiries.
+            Tryouts, partnerships, or general questions - we read every serious message and route it to the right inbox.
           </p>
         </div>
       </section>
@@ -134,11 +255,19 @@ export default function Contact() {
                 <div className="flex flex-col items-center justify-center rounded-2xl border border-[#00ff87]/30 bg-white/3 py-16 text-center">
                   <CheckCircle size={48} className="mb-4 text-[#00ff87]" />
                   <h3 className="mb-2 text-2xl font-black text-white">Message Sent!</h3>
-                  <p className="text-gray-400">We will get back to you within 48 hours. Thanks for reaching out.</p>
+                  <p className="text-gray-400">
+                    {submittedInPreview
+                      ? "You are in local preview mode. The form logic is valid, but real delivery works after deploy on Netlify."
+                      : "Your request was sent through the website and routed to the correct NewEra inbox."}
+                  </p>
                   <button
                     onClick={() => {
                       setSubmitted(false);
-                      setFormData({ name: "", email: "", type: "general", tag: "", message: "" });
+                      setSubmittedInPreview(false);
+                      setFormData(initialFormData);
+                      setFormErrors({});
+                      setHasTriedSubmit(false);
+                      setSubmitError("");
                     }}
                     className="mt-6 text-sm font-bold text-[#00ff87] hover:underline"
                   >
@@ -147,6 +276,7 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  <input type="hidden" name="bot-field" />
                   <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                     <div>
                       <label className="mb-2 block text-xs font-semibold uppercase tracking-widest text-gray-500">
@@ -156,10 +286,13 @@ export default function Contact() {
                         type="text"
                         required
                         value={formData.name}
-                        onChange={(event) => setFormData({ ...formData, name: event.target.value })}
+                        onChange={(event) => updateField("name", event.target.value)}
                         placeholder="John Doe"
-                        className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-gray-600 transition-all focus:border-[#00ff87]/50 focus:bg-[#00ff87]/5 focus:outline-none"
+                        className={getFieldClassName("name")}
                       />
+                      {hasTriedSubmit && formErrors.name && (
+                        <p className="mt-2 text-xs font-medium text-red-400">{formErrors.name}</p>
+                      )}
                     </div>
                     <div>
                       <label className="mb-2 block text-xs font-semibold uppercase tracking-widest text-gray-500">
@@ -169,10 +302,13 @@ export default function Contact() {
                         type="email"
                         required
                         value={formData.email}
-                        onChange={(event) => setFormData({ ...formData, email: event.target.value })}
+                        onChange={(event) => updateField("email", event.target.value)}
                         placeholder="you@example.com"
-                        className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-gray-600 transition-all focus:border-[#00ff87]/50 focus:bg-[#00ff87]/5 focus:outline-none"
+                        className={getFieldClassName("email")}
                       />
+                      {hasTriedSubmit && formErrors.email && (
+                        <p className="mt-2 text-xs font-medium text-red-400">{formErrors.email}</p>
+                      )}
                     </div>
                   </div>
 
@@ -182,7 +318,7 @@ export default function Contact() {
                     </label>
                     <select
                       value={formData.type}
-                      onChange={(event) => setFormData({ ...formData, type: event.target.value })}
+                      onChange={(event) => updateField("type", event.target.value)}
                       className="w-full cursor-pointer appearance-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white transition-all focus:border-[#00ff87]/50 focus:outline-none"
                     >
                       {contactTypes.map((type) => (
@@ -201,10 +337,16 @@ export default function Contact() {
                       <input
                         type="text"
                         value={formData.tag}
-                        onChange={(event) => setFormData({ ...formData, tag: event.target.value })}
+                        onChange={(event) => updateField("tag", event.target.value)}
                         placeholder="#XXXXXXXX"
-                        className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-gray-600 transition-all focus:border-[#00ff87]/50 focus:bg-[#00ff87]/5 focus:outline-none"
+                        className={getFieldClassName("tag")}
                       />
+                      {hasTriedSubmit && formErrors.tag && (
+                        <p className="mt-2 text-xs font-medium text-red-400">{formErrors.tag}</p>
+                      )}
+                      {!hasTriedSubmit && (
+                        <p className="mt-2 text-xs text-gray-600">Required only for Player Tryout requests.</p>
+                      )}
                     </div>
                   )}
 
@@ -216,19 +358,29 @@ export default function Contact() {
                       required
                       rows={5}
                       value={formData.message}
-                      onChange={(event) => setFormData({ ...formData, message: event.target.value })}
+                      onChange={(event) => updateField("message", event.target.value)}
                       placeholder="Tell us what is on your mind..."
-                      className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-gray-600 transition-all focus:border-[#00ff87]/50 focus:bg-[#00ff87]/5 focus:outline-none"
+                      className={`${getFieldClassName("message")} resize-none`}
                     />
+                    <div className="mt-2 flex items-center justify-between">
+                      {hasTriedSubmit && formErrors.message ? (
+                        <p className="text-xs font-medium text-red-400">{formErrors.message}</p>
+                      ) : (
+                        <p className="text-xs text-gray-600">Minimum 20 characters for a serious inquiry.</p>
+                      )}
+                      <p className="text-xs text-gray-600">{formData.message.trim().length} / 20+</p>
+                    </div>
                   </div>
 
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="flex w-full items-center justify-center gap-2 rounded-full bg-[#00ff87] px-8 py-4 text-sm font-black text-black shadow-lg shadow-[#00ff87]/30 transition-all duration-300 hover:scale-[1.02] hover:bg-white"
                   >
                     <Send size={16} />
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
+                  {submitError && <p className="text-sm font-medium text-red-400">{submitError}</p>}
                 </form>
               )}
             </div>
@@ -243,9 +395,9 @@ export default function Contact() {
 
               <div className="space-y-4">
                 {[
-                  { label: "Partnerships", email: "partnerships@newera.gg", icon: <Mail size={16} /> },
-                  { label: "Tryouts", email: "tryouts@newera.gg", icon: <Mail size={16} /> },
-                  { label: "General", email: "hello@newera.gg", icon: <MessageSquare size={16} /> }
+                  { label: "Partnerships", email: "partnershipsnewera@gmail.com", icon: <Mail size={16} /> },
+                  { label: "Tryouts", email: "tryoutsnewera@gmail.com", icon: <Mail size={16} /> },
+                  { label: "General", email: "genenewera@gmail.com", icon: <MessageSquare size={16} /> }
                 ].map((item) => (
                   <div
                     key={item.label}
@@ -263,7 +415,7 @@ export default function Contact() {
               </div>
 
               <a
-                href="https://discord.gg/jW5Tg53V"
+                href="https://discord.gg/rGVVdZF8"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-4 rounded-xl border border-[#5865F2]/30 bg-[#5865F2]/10 p-5 transition-all hover:bg-[#5865F2]/20"
