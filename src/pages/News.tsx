@@ -201,7 +201,7 @@ export default function News() {
             <div className="rounded-2xl border border-white/10 bg-white/3 p-8 text-center">
               <p className="mb-3 text-lg font-black text-white">Live Brawl Stars data coming soon</p>
               <p className="mx-auto max-w-2xl text-sm leading-relaxed text-gray-400">
-                {liveRotationError || "This section will show current map rotation and active events once live data is connected."}
+                This section will show current map rotation and active events once live data is connected.
               </p>
             </div>
           )}
