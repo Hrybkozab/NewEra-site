@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Trophy } from "lucide-react";
+import { Shield, Swords, Trophy, UserRound, Zap } from "lucide-react";
+import { fetchPlayerStats, formatStatNumber, type LivePlayerStats } from "../lib/brawlApi";
 
 function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
   const [inView, setInView] = useState(false);
@@ -29,6 +30,7 @@ function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
 const players = [
   {
     tag: "sEt",
+    playerTag: "82GOCJUGP",
     realName: "Stanislav Dolbnya",
     role: "Player",
     country: "Ukraine",
@@ -42,6 +44,7 @@ const players = [
   },
   {
     tag: "Zabziro",
+    playerTag: "LR298JCP",
     realName: "Mykhailo Hrybko",
     role: "In-Game Leader",
     country: "Ukraine",
@@ -55,6 +58,7 @@ const players = [
   },
   {
     tag: "Uzb3K1rOv",
+    playerTag: "980YG298G",
     realName: "Alexandre Taychinov",
     role: "Player",
     country: "France",
@@ -68,12 +72,22 @@ const players = [
   }
 ];
 
+const statCards = [
+  { key: "highestTrophies", label: "Highest", icon: Trophy },
+  { key: "teamVictories", label: "3v3 Wins", icon: Swords },
+  { key: "soloVictories", label: "Solo Wins", icon: Zap },
+  { key: "expLevel", label: "Level", icon: UserRound }
+] as const;
+
 export default function Team() {
   const playersRef = useRef<HTMLDivElement>(null);
   // This ref is used so selecting a player always returns the user to the spotlight card.
   const spotlightRef = useRef<HTMLDivElement>(null);
   const playersInView = useInView(playersRef);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [liveStats, setLiveStats] = useState<Record<string, LivePlayerStats | null>>({});
+  const [liveErrors, setLiveErrors] = useState<Record<string, string>>({});
+  const [isRefreshingStats, setIsRefreshingStats] = useState(false);
 
   const getPlayerIndex = (tag: string | null) => {
     // Query params let Home open Team with a specific player already selected.
@@ -83,6 +97,17 @@ export default function Team() {
   };
 
   const [activePlayer, setActivePlayer] = useState(() => getPlayerIndex(searchParams.get("player")));
+  const selectedPlayer = players[activePlayer];
+  const selectedLiveStats = selectedPlayer ? liveStats[selectedPlayer.tag] : null;
+  const selectedLiveError = selectedPlayer ? liveErrors[selectedPlayer.tag] || "" : "";
+
+  const displayTopBrawlers = useMemo(() => {
+    if (selectedLiveStats?.topBrawlers && selectedLiveStats.topBrawlers.length > 0) {
+      return selectedLiveStats.topBrawlers.map((item) => item.name).filter(Boolean) as string[];
+    }
+
+    return selectedPlayer?.favoriteBrawlers || [];
+  }, [selectedLiveStats, selectedPlayer]);
 
   useEffect(() => {
     setActivePlayer(getPlayerIndex(searchParams.get("player")));
@@ -100,6 +125,61 @@ export default function Team() {
     setSearchParams({ player: players[index].tag });
     spotlightRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
   };
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function refreshAllPlayerStats() {
+      setIsRefreshingStats(true);
+
+      const results = await Promise.all(
+        players.map(async (player) => {
+          if (!player.playerTag) {
+            return {
+              playerTagKey: player.tag,
+              stats: null,
+              error: "Add an official Brawl Stars player tag to enable live stats."
+            };
+          }
+
+          try {
+            const stats = await fetchPlayerStats(player.playerTag);
+            return { playerTagKey: player.tag, stats, error: "" };
+          } catch (error) {
+            return {
+              playerTagKey: player.tag,
+              stats: null,
+              error: error instanceof Error ? error.message : "Could not load live player stats."
+            };
+          }
+        })
+      );
+
+      if (cancelled) {
+        return;
+      }
+
+      const nextStats: Record<string, LivePlayerStats | null> = {};
+      const nextErrors: Record<string, string> = {};
+
+      for (const result of results) {
+        nextStats[result.playerTagKey] = result.stats;
+        nextErrors[result.playerTagKey] = result.error;
+      }
+
+      setLiveStats(nextStats);
+      setLiveErrors(nextErrors);
+      setIsRefreshingStats(false);
+    }
+
+    refreshAllPlayerStats();
+    const intervalId = window.setInterval(refreshAllPlayerStats, 30000);
+
+    return () => {
+      cancelled = true;
+      window.clearInterval(intervalId);
+    };
+  }, []);
 
   return (
     <div className="overflow-x-hidden bg-black text-white">
@@ -155,7 +235,7 @@ export default function Team() {
           </div>
 
           {/* Large spotlight card for the currently selected player. */}
-          {players[activePlayer] && (
+          {selectedPlayer && (
             <div className="relative grid min-h-[520px] items-stretch gap-4 overflow-hidden rounded-3xl border border-white/10 bg-white/3 md:grid-cols-[minmax(260px,340px)_1fr]">
               <div
                 className="pointer-events-none absolute inset-0 opacity-[0.12]"
@@ -166,43 +246,43 @@ export default function Team() {
                 }}
               />
               <div
-                key={players[activePlayer].tag}
+                key={selectedPlayer.tag}
                 className="team-player-title pointer-events-none absolute left-0 top-8 hidden whitespace-nowrap text-[clamp(5rem,15vw,13rem)] font-black uppercase leading-none text-transparent opacity-100 md:block"
                 style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.22)" }}
               >
-                {players[activePlayer].tag}
+                {selectedPlayer.tag}
               </div>
               <div className="pointer-events-none absolute left-8 top-7 hidden text-[10px] font-bold uppercase tracking-[0.55em] text-white/70 md:block">
                 Brawl Stars
               </div>
               <div className="relative flex h-72 min-h-[280px] items-end justify-start overflow-hidden md:h-[520px]">
                 <img
-                  src={players[activePlayer].img}
-                  alt={players[activePlayer].tag}
+                  src={selectedPlayer.img}
+                  alt={selectedPlayer.tag}
                   className="h-[82%] w-auto max-w-none object-contain md:h-[86%]"
-                  style={{ objectPosition: players[activePlayer].position }}
+                  style={{ objectPosition: selectedPlayer.position }}
                 />
               </div>
               <div className="relative z-10 flex h-full flex-col justify-center p-6 md:p-7">
                 <div
                   className="mb-4 inline-block rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em]"
                   style={{
-                    background: `${players[activePlayer].color}20`,
+                    background: `${selectedPlayer.color}20`,
                     color: "#ffffff",
-                    border: `1px solid ${players[activePlayer].color}55`
+                    border: `1px solid ${selectedPlayer.color}55`
                   }}
                 >
-                  {players[activePlayer].role}
+                  {selectedPlayer.role}
                 </div>
                 <h2 className="mb-2 text-4xl font-black uppercase leading-none tracking-tight text-white md:text-6xl">
-                  {players[activePlayer].tag}
+                  {selectedPlayer.tag}
                 </h2>
                 <p className="mb-5 text-xs uppercase tracking-[0.32em] text-white/45 md:text-sm">
-                  {players[activePlayer].realName}
+                  {selectedPlayer.realName}
                 </p>
                 <div className="mb-4 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-gray-300">
-                  <span className="text-base">{players[activePlayer].flag}</span>
-                  <span className="font-semibold">{players[activePlayer].country}</span>
+                  <span className="text-base">{selectedPlayer.flag}</span>
+                  <span className="font-semibold">{selectedPlayer.country}</span>
                 </div>
                 <div className="mb-4 flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5">
@@ -217,10 +297,31 @@ export default function Team() {
                     <div className="text-sm text-gray-400">Joined 27 February 2026</div>
                   </div>
                 </div>
+                <div className="mb-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                  {statCards.map(({ key, label, icon: Icon }) => (
+                    <div key={key} className="rounded-xl border border-white/10 bg-white/5 px-4 py-4">
+                      <div className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-gray-500">
+                        <Icon size={14} className="text-[#00ff87]" />
+                        <span>{label}</span>
+                      </div>
+                      <div className="text-2xl font-black text-white">
+                        {selectedLiveStats?.[key] !== undefined
+                          ? formatStatNumber(selectedLiveStats[key])
+                          : key === "highestTrophies"
+                            ? selectedPlayer.trophies
+                            : selectedLiveError
+                              ? "Offline"
+                              : "Loading..."}
+                      </div>
+                    </div>
+                  ))}
+                </div>
                 <div className="mb-4 rounded-xl border border-white/10 bg-white/5 px-4 py-4">
-                  <div className="mb-3 text-sm font-bold text-white">Favorite brawlers:</div>
+                  <div className="mb-3 text-sm font-bold text-white">
+                    {selectedLiveStats?.topBrawlers?.length ? "Top brawlers:" : "Favorite brawlers:"}
+                  </div>
                   <div className="space-y-2">
-                    {players[activePlayer].favoriteBrawlers.map((brawler) => (
+                    {displayTopBrawlers.map((brawler) => (
                       <div key={brawler} className="flex items-center gap-3 text-sm text-gray-300">
                         <span className="h-3 w-3 rounded-full bg-white" />
                         <span>{brawler}</span>
@@ -228,13 +329,38 @@ export default function Team() {
                     ))}
                   </div>
                 </div>
-                <p className="mb-6 max-w-xl leading-relaxed text-gray-400">{players[activePlayer].bio}</p>
+                <p className="mb-4 max-w-xl leading-relaxed text-gray-400">{selectedPlayer.bio}</p>
+
+                <div className="mb-6 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-gray-400">
+                  {selectedLiveError
+                    ? selectedLiveError
+                    : isRefreshingStats && !selectedLiveStats
+                      ? "Loading live Brawl Stars stats..."
+                      : isRefreshingStats
+                        ? "Refreshing live Brawl Stars stats..."
+                        : selectedPlayer.playerTag
+                          ? "Live player stats connected. Auto-refresh every 30 seconds."
+                          : "Add each official Brawl Stars player tag in Team.tsx to show live trophies, wins, and top brawlers."}
+                </div>
 
                 <div className="flex flex-wrap items-center gap-3 text-sm text-gray-400">
                   <Trophy size={14} className="text-[#00ff87]" />
-                  <span>{players[activePlayer].trophies} Trophies</span>
+                  <span>
+                    {selectedLiveStats?.trophies !== undefined
+                      ? `${formatStatNumber(selectedLiveStats.trophies)} Trophies`
+                      : `${selectedPlayer.trophies} Trophies`}
+                  </span>
                   <span className="text-gray-700">/</span>
-                  <span>{players[activePlayer].favoriteBrawlers.join(", ")}</span>
+                  <span>{displayTopBrawlers.join(", ")}</span>
+                  {selectedLiveStats?.clubName ? (
+                    <>
+                      <span className="text-gray-700">/</span>
+                      <span className="inline-flex items-center gap-2">
+                        <Shield size={14} className="text-[#00ff87]" />
+                        {selectedLiveStats.clubName}
+                      </span>
+                    </>
+                  ) : null}
                 </div>
               </div>
             </div>

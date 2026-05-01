@@ -95,11 +95,13 @@ Install dependencies:
 npm install
 ```
 
-Run the development server:
+Run the app with Netlify Functions locally:
 
 ```bash
-npm run dev
+npx netlify dev
 ```
+
+This starts the Vite frontend and exposes `/.netlify/functions/*` locally, so the Brawl Stars API block can work during development.
 
 Build the project:
 
@@ -115,15 +117,28 @@ npm run preview
 
 ## Brawl Stars API Setup
 
-To enable live Brawl Stars rotation data, add this environment variable in Netlify:
+To enable live Brawl Stars rotation data and player stats, create a local `.env` file in the project root and add the same variable in Netlify:
 
 ```bash
 BRAWL_STARS_API_TOKEN=your_token_here
+VITE_BRAWL_API_BASE=/.netlify/functions
 ```
 
 You can get the token from the official Brawl Stars developer portal:
 
 - [Brawl Stars API](https://developer.brawlstars.com/)
+
+To show real player stats on the Team page, add each player's official Brawl Stars tag in:
+
+- `src/pages/Team.tsx`
+
+Use the `playerTag` field for each roster member. Example:
+
+```ts
+playerTag: "2PP"
+```
+
+Do not include the `#` symbol.
 
 ## Main Structure
 

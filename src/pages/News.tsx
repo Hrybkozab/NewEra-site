@@ -1,7 +1,29 @@
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Radio, Trophy, Users } from "lucide-react";
+import { fetchLiveRotation, formatRotationTime, type LiveRotationItem } from "../lib/brawlApi";
 import { coverageAreas, newsStories, seasonNotes } from "./newsData";
+
+function NewsImage({ src, alt }: { src: string; alt: string }) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) {
+    return (
+      <div className="flex h-full w-full items-center justify-center bg-white/5 px-6 text-center text-sm text-gray-500">
+        Image unavailable
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+      onError={() => setFailed(true)}
+    />
+  );
+}
 
 function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
   const [inView, setInView] = useState(false);
@@ -26,14 +48,6 @@ function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
 }
 
 const coverageIcons = [<Trophy size={18} />, <Users size={18} />, <Radio size={18} />];
-
-type LiveRotationItem = {
-  battleMode?: string;
-  mapName?: string;
-  mapImageUrl?: string;
-  startTime?: string;
-  endTime?: string;
-};
 
 export default function News() {
   const coverageRef = useRef<HTMLDivElement>(null);
@@ -76,26 +90,10 @@ export default function News() {
       try {
         setIsLoadingRotation(true);
         setLiveRotationError("");
-
-        const response = await fetch("/.netlify/functions/brawl-events");
-        const contentType = response.headers.get("content-type") || "";
-
-        if (!contentType.includes("application/json")) {
-          throw new Error(
-            window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-              ? "Live Brawl Stars rotation is only available after deploy on Netlify or when Netlify Functions are running locally."
-              : "The live API endpoint is not returning JSON yet."
-          );
-        }
-
-        const payload = await response.json();
-
-        if (!response.ok) {
-          throw new Error(payload?.error || "Could not load live Brawl Stars rotation.");
-        }
+        const items = await fetchLiveRotation();
 
         if (!cancelled) {
-          setLiveRotation(Array.isArray(payload?.items) ? payload.items.slice(0, 3) : []);
+          setLiveRotation(items);
         }
       } catch (error) {
         if (!cancelled) {
@@ -188,10 +186,10 @@ export default function News() {
                   <div className="p-6">
                     <h3 className="mb-2 text-xl font-black text-white">{item.mapName || "Unknown map"}</h3>
                     <p className="text-sm leading-relaxed text-gray-400">
-                      Starts: {item.startTime ? new Date(item.startTime).toLocaleString() : "Unknown"}
+                      Starts: {formatRotationTime(item.startTime)}
                     </p>
                     <p className="mt-1 text-sm leading-relaxed text-gray-500">
-                      Ends: {item.endTime ? new Date(item.endTime).toLocaleString() : "Unknown"}
+                      Ends: {formatRotationTime(item.endTime)}
                     </p>
                   </div>
                 </article>
@@ -201,7 +199,7 @@ export default function News() {
             <div className="rounded-2xl border border-white/10 bg-white/3 p-8 text-center">
               <p className="mb-3 text-lg font-black text-white">Live Brawl Stars data coming soon</p>
               <p className="mx-auto max-w-2xl text-sm leading-relaxed text-gray-400">
-                This section will show current map rotation and active events once live data is connected.
+                {liveRotationError || "This section will show current map rotation and active events once live data is connected."}
               </p>
             </div>
           )}
@@ -266,11 +264,7 @@ export default function News() {
                 style={{ transitionDelay: `${index * 120}ms` }}
               >
                 <div className="relative h-56 overflow-hidden">
-                  <img
-                    src={story.image}
-                    alt={story.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <NewsImage src={story.image} alt={story.title} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
                   <div className="absolute top-4 left-4 rounded-full bg-[#00ff87] px-3 py-1 text-[10px] font-black tracking-widest text-black">
                     {story.tag}
