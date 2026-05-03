@@ -60,10 +60,10 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 }
 
 const stats = [
-  { value: 12, suffix: "+", label: "Tournaments Played" },
-  { value: 1, suffix: "", label: "Trophy Won" },
+  { value: 25, suffix: "+", label: "Tournaments Played" },
+  { value: 2, suffix: "", label: "Trophy Won" },
   { value: 3, suffix: "", label: "Active Players" },
-  { value: 98, suffix: "%", label: "Win Rate (Season)" }
+  { value: 72, suffix: "%", label: "Win Rate (Season)" }
 ];
 
 const achievements = [
@@ -200,15 +200,6 @@ export default function Home() {
         </div>
 
         <div className="absolute inset-x-0 bottom-0">
-          <div className="pointer-events-none absolute bottom-20 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.45em] text-gray-500">
-            <span>Scroll</span>
-            <img
-              src="/images/newera-logo.png"
-              alt="NewEra logo"
-              className="h-10 w-16 object-contain opacity-90"
-            />
-          </div>
-
           <div className="relative overflow-hidden border-y-2 border-black bg-[#00ff87] py-3 text-black shadow-[0_-8px_30px_rgba(0,0,0,0.35)]">
             <div className="hero-marquee flex min-w-max items-center gap-10 whitespace-nowrap">
               {[0, 1].map((group) => (
@@ -231,9 +222,10 @@ export default function Home() {
       </section>
 
       <section className="py-24 md:py-32">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="relative mx-auto max-w-7xl px-6">
           <div className="grid items-center gap-16 md:grid-cols-2">
-            <div>
+            <div className="relative">
+              <div className="mb-8 h-px w-32 bg-gradient-to-r from-[#00ff87] to-transparent" />
               <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#00ff87]">Who We Are</p>
               <h2 className="mb-6 text-4xl font-black leading-tight tracking-tight md:text-5xl">
                 Built for the <br />
@@ -254,15 +246,17 @@ export default function Home() {
             </div>
 
             <div className="relative">
-              <div className="relative overflow-hidden rounded-2xl">
+              <div className="absolute -inset-6 rounded-[2rem] bg-[#00ff87]/10 blur-2xl" />
+              <div className="motion-card relative overflow-hidden rounded-2xl border border-[#00ff87]/15 bg-white/3">
                 <img
                   src="https://supercell.com/images/b524ca49e8549e5d3f5485452da7f26c/cropped.webp"
                   alt="Gaming setup"
                   className="h-80 w-full object-cover md:h-96"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#00ff87]/60 to-transparent" />
               </div>
-              <div className="absolute -bottom-6 -left-6 rounded-2xl bg-[#00ff87] px-6 py-4 text-black shadow-xl shadow-[#00ff87]/20">
+              <div className="absolute -bottom-6 -left-6 rounded-2xl bg-[#00ff87] px-6 py-4 text-black shadow-xl shadow-[#00ff87]/25">
                 <div className="text-2xl font-black">2026</div>
                 <div className="text-xs font-bold tracking-wider">SEASON ACTIVE</div>
               </div>
@@ -281,9 +275,9 @@ export default function Home() {
             {players.map((player, index) => (
               <div
                 key={player.tag}
-                className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-white/3 transition-all duration-500 hover:-translate-y-2 hover:border-[#00ff87]/40 ${
+                className={`motion-card reveal-soft group relative overflow-hidden rounded-2xl border border-white/10 bg-white/3 transition-all duration-500 ${
                   playersInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-                }`}
+                } ${playersInView ? "reveal-soft-visible" : ""}`}
                 style={{ transitionDelay: `${index * 150}ms` }}>
                 <div className="relative h-64 overflow-hidden">
                   <img
@@ -323,9 +317,9 @@ export default function Home() {
             {stats.map((stat, index) => (
               <div
                 key={stat.label}
-                className={`rounded-2xl border border-white/10 bg-white/3 p-8 text-center transition-all duration-500 hover:border-[#00ff87]/30 ${
+                className={`motion-card reveal-soft rounded-2xl border border-white/10 bg-white/3 p-8 text-center transition-all duration-500 ${
                   statsInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-                }`}
+                } ${statsInView ? "reveal-soft-visible" : ""}`}
                 style={{ transitionDelay: `${index * 120}ms` }}>
                 <div className="mb-3 text-4xl font-black text-[#00ff87] md:text-5xl">
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} />
@@ -347,9 +341,9 @@ export default function Home() {
             {achievements.map((achievement, index) => (
               <div
                 key={achievement.tournament}
-                className={`relative overflow-hidden rounded-2xl border border-white/10 bg-white/3 p-8 transition-all duration-500 hover:-translate-y-2 hover:border-white/20 ${
+                className={`motion-card reveal-soft relative overflow-hidden rounded-2xl border border-white/10 bg-white/3 p-8 transition-all duration-500 ${
                   achievementsInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-                }`}
+                } ${achievementsInView ? "reveal-soft-visible" : ""}`}
                 style={{ transitionDelay: `${index * 140}ms` }}>
                 <div className="absolute top-0 left-0 h-1 w-full" style={{ background: achievement.color }} />
                 <div className="mb-4 text-5xl font-black" style={{ color: achievement.color }}>
@@ -382,9 +376,9 @@ export default function Home() {
             {newsStories.map((item, index) => (
               <article
                 key={item.slug}
-                className={`group overflow-hidden rounded-2xl border border-white/10 bg-white/3 transition-all duration-500 hover:border-white/20 ${
+                className={`motion-card reveal-soft group overflow-hidden rounded-2xl border border-white/10 bg-white/3 transition-all duration-500 ${
                   newsInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-                }`}
+                } ${newsInView ? "reveal-soft-visible" : ""}`}
                 style={{ transitionDelay: `${index * 150}ms` }}>
                 <div className="relative h-56 overflow-hidden">
                   <img

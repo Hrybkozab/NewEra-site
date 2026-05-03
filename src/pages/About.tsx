@@ -128,9 +128,9 @@ export default function About() {
               </p>
               <div className="flex flex-wrap gap-4">
                 {[
-                  { icon: <Trophy size={14} />, text: "1 Trophy" },
-                  { icon: <Users size={14} />, text: "7 Players" },
-                  { icon: <Target size={14} />, text: "12+ Tournaments" }
+                  { icon: <Trophy size={14} />, text: "2 Trophy" },
+                  { icon: <Users size={14} />, text: "7 Different Players" },
+                  { icon: <Target size={14} />, text: "25+ Tournaments" }
                 ].map((item) => (
                   <div
                     key={item.text}

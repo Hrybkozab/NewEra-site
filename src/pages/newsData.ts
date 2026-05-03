@@ -61,7 +61,7 @@ export const newsStories: NewsStory[] = [
       "Major confidence boost before the next event"
     ],
     statLabel: "Final Score",
-    statValue: "3:0"
+    statValue: "3 : 0"
   },
   {
     slug: "b8-interest",
@@ -85,8 +85,83 @@ export const newsStories: NewsStory[] = [
       "The roster gained visibility beyond community events",
       "Competitive performance remains the biggest driver of value"
     ],
-    statLabel: "Headline Reach",
+    statLabel: "Chances to Sign",
+    statValue: "Medium"
+  },
+  {
+    slug: "navi-interest",
+    tag: "ANNOUNCEMENTS",
+    category: "Organization Watch",
+    date: "May 3, 2026",
+    title: "Natus Vincere interested in acquiring NewEra Esports such as NAVI Junior roster",
+    image:
+      "https://d3dwep9z8m8y9r.cloudfront.net/publications/2023/07/publications-10412/thumbnail/40127/Site_1738x800.png",
+    lead:
+      "Interest from a larger organization placed extra attention on the NewEra project and highlighted how quickly the team regained relevance after its return.",
+    excerpt:
+      "Possibly one of the best deals in the team's history... Don't miss out!", 
+    body: [
+      "Based on the results of the team NewEra Esports",
+      "Natus Vincere have expressed interest in signing a young roster. Based on their impressive results, including frequent victories against Tier-1 teams, NAVI are offering cooperation and shared achievements.",
+      "For NewEra, this could be a great chance to get into the world title and prove to the world what their roster is capable of, at the moment we are waiting for the final result of negotiations between the two sides."
+    ],
+    highlights: [
+      "Outside attention increased around the team brand",
+      "The roster gained visibility beyond community events",
+      "Competitive performance remains the biggest driver of value"
+    ],
+    statLabel: "Chances to Sign",
     statValue: "High"
+  },
+  {
+    slug: "chit-interest",
+    tag: "TOURNAMENTS",
+    category: "Match Report",
+    date: "April 17, 2026",
+    title: "NewEra won the Challengers with a 3:2 victory in the finals",
+    image:
+      "https://event.supercell.com/brawlstars/public/images/johllpugn3lb/5inu8UU3xQeixEkbTxJd9P/57bce7174e765599afa98a738d246a3e/BSC_ITALY.png",
+    lead:
+      "A young team defeats one of the strongest teams in the history of the Brawl Stars competitive scene in the finals.",
+    excerpt:
+      "NewEra wins one of the major tournaments in their region.",
+    body: [
+      "On April 17, one of the most important tournaments of this season took place, called Brawl Stars Challengers Switzerland.",
+      "In the quarter-finals, NovaEra's opponent was the Italian team NOVO Esports, although the opponent seemed stronger, NovaEra won with a score of 3 : 2",
+      "In the final, they were already faced with the legendary SK Gaming, who were not easy to defeat, but our guys did not get lost during the game, made an unthinkable draft and, with difficulty, won with a score of 3:2"
+    ],
+    highlights: [
+      "3:2 finish in the grand final",
+      "Disciplined map control and cleaner late-game decisions",
+      "Major confidence boost before the next event"
+    ],
+    statLabel: "Final Score",
+    statValue: "3 : 2"
+  },
+  {
+    slug: "lenain-interest",
+    tag: "ROSTER",
+    category: "Roster Changes",
+    date: "May 1, 2026",
+    title: "Legendary player LeNain is set to join NewEra Esports.",
+    image:
+      "https://static.wikia.nocookie.net/bs-esports/images/3/31/LeNain.jpg/revision/latest?cb=20221221173437",
+    lead:
+      "LeNain is kicked from Team Heretics and becomes a free agent for a new organization.",
+    excerpt:
+      "Where will everyone's favorite Swiss world-class player go?",
+    body: [
+      "March 1, 2026 LeNain is kicked out of the Spanish organization Team Heretics due to unsatisfactory team performance.",
+      "At the moment, he has a choice to make, and many analysts are currently betting that the player will be able to join one of three organizations: BIG Esports, SK Gaming and NewEra Esports.",
+      "Also, recently there have been some active scrims with Zabziro, so we are currently waiting for more news regarding this situation."
+    ],
+    highlights: [
+      "The Spaniards' abrupt decision about his kick",
+      "Possible changes in the future",
+      "Unexpected screams between LeNain and the team"
+    ],
+    statLabel: "Status of Signing",
+    statValue: "Unknown"
   }
 ];
 

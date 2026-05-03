@@ -188,9 +188,9 @@ function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-bold uppercase tracking-widest text-white">Discipline</h4>
+            <h4 className="mb-4 text-sm font-bold uppercase tracking-widest text-white">Company</h4>
             <ul className="space-y-2">
-              {["Brawl Stars", "Competitive Scene", "Patch Notes"].map((item) => (
+              {["Face of Company", "Competitive Scene", "info@newera.ch"].map((item) => (
                 <li key={item}>
                   <span className="group flex cursor-pointer items-center gap-1 text-sm text-gray-500 transition-colors hover:text-[#00ff87]">
                     <ChevronRight size={12} className="opacity-0 transition-opacity group-hover:opacity-100" />

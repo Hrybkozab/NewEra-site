@@ -161,7 +161,7 @@ export default function News() {
           {isLoadingRotation ? (
             <div className="grid gap-6 md:grid-cols-3">
               {[0, 1, 2].map((item) => (
-                <div key={item} className="rounded-2xl border border-white/10 bg-white/3 p-6">
+                <div key={item} className="motion-card rounded-2xl border border-white/10 bg-white/3 p-6">
                   <div className="mb-4 h-40 animate-pulse rounded-xl bg-white/5" />
                   <div className="mb-3 h-4 w-28 animate-pulse rounded bg-white/5" />
                   <div className="h-3 w-40 animate-pulse rounded bg-white/5" />
@@ -171,7 +171,7 @@ export default function News() {
           ) : liveRotation.length > 0 ? (
             <div className="grid gap-6 md:grid-cols-3">
               {liveRotation.map((item) => (
-                <article key={`${item.battleMode}-${item.mapName}-${item.startTime}`} className="overflow-hidden rounded-2xl border border-white/10 bg-white/3">
+                <article key={`${item.battleMode}-${item.mapName}-${item.startTime}`} className="motion-card overflow-hidden rounded-2xl border border-white/10 bg-white/3">
                   <div className="relative h-44 overflow-hidden bg-black">
                     {item.mapImageUrl ? (
                       <img src={item.mapImageUrl} alt={item.mapName || "Brawl map"} className="h-full w-full object-cover" />
@@ -211,7 +211,7 @@ export default function News() {
           <div className="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#00ff87]">Top Stories</p>
-              <h2 className="text-4xl font-black md:text-5xl">Latest Headlines</h2>
+              <h2 className="text-4xl font-black md:text-5xl">Latest News</h2>
             </div>
             <div className="w-full max-w-2xl space-y-4">
               <div>
@@ -258,9 +258,9 @@ export default function News() {
               {filteredStories.map((story, index) => (
               <article
                 key={story.slug}
-                className={`group overflow-hidden rounded-2xl border border-white/10 bg-white/3 transition-all duration-500 hover:-translate-y-2 hover:border-[#00ff87]/35 ${
+                className={`motion-card reveal-soft group overflow-hidden rounded-2xl border border-white/10 bg-white/3 transition-all duration-500 ${
                   storiesInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-                }`}
+                } ${storiesInView ? "reveal-soft-visible" : ""}`}
                 style={{ transitionDelay: `${index * 120}ms` }}
               >
                 <div className="relative h-56 overflow-hidden">
@@ -301,9 +301,9 @@ export default function News() {
             {coverageAreas.map((item, index) => (
               <div
                 key={item.title}
-                className={`rounded-2xl border border-white/10 bg-white/3 p-8 transition-all duration-500 hover:border-white/20 ${
+                className={`motion-card reveal-soft rounded-2xl border border-white/10 bg-white/3 p-8 transition-all duration-500 ${
                   coverageInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-                }`}
+                } ${coverageInView ? "reveal-soft-visible" : ""}`}
                 style={{ transitionDelay: `${index * 120}ms` }}
               >
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-[#00ff87]/20 bg-[#00ff87]/10 text-[#00ff87]">
@@ -327,9 +327,9 @@ export default function News() {
             {seasonNotes.map((item, index) => (
               <div
                 key={item.month}
-                className={`rounded-2xl border border-white/10 bg-white/3 p-6 transition-all duration-500 md:flex md:items-start md:gap-8 ${
+                className={`motion-card reveal-soft rounded-2xl border border-white/10 bg-white/3 p-6 transition-all duration-500 md:flex md:items-start md:gap-8 ${
                   timelineInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-                }`}
+                } ${timelineInView ? "reveal-soft-visible" : ""}`}
                 style={{ transitionDelay: `${index * 130}ms` }}
               >
                 <div className="mb-4 w-full max-w-[170px] rounded-xl border border-[#00ff87]/20 bg-[#00ff87]/10 px-4 py-3 text-sm font-black uppercase tracking-wider text-[#00ff87] md:mb-0">

@@ -236,7 +236,7 @@ export default function Team() {
 
           {/* Large spotlight card for the currently selected player. */}
           {selectedPlayer && (
-            <div className="relative grid min-h-[520px] items-stretch gap-4 overflow-hidden rounded-3xl border border-white/10 bg-white/3 md:grid-cols-[minmax(260px,340px)_1fr]">
+            <div className="motion-card relative grid min-h-[520px] items-stretch gap-4 overflow-hidden rounded-3xl border border-white/10 bg-white/3 md:grid-cols-[minmax(260px,340px)_1fr]">
               <div
                 className="pointer-events-none absolute inset-0 opacity-[0.12]"
                 style={{
@@ -299,7 +299,7 @@ export default function Team() {
                 </div>
                 <div className="mb-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                   {statCards.map(({ key, label, icon: Icon }) => (
-                    <div key={key} className="rounded-xl border border-white/10 bg-white/5 px-4 py-4">
+                    <div key={key} className="motion-card rounded-xl border border-white/10 bg-white/5 px-4 py-4">
                       <div className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-gray-500">
                         <Icon size={14} className="text-[#00ff87]" />
                         <span>{label}</span>
@@ -379,9 +379,9 @@ export default function Team() {
             {players.map((player, index) => (
               <div
                 key={player.tag}
-                className={`group cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-white/3 transition-all duration-500 hover:-translate-y-2 hover:border-[#00ff87]/40 ${
+                className={`motion-card reveal-soft group cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-white/3 transition-all duration-500 ${
                   playersInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-                }`}
+                } ${playersInView ? "reveal-soft-visible" : ""}`}
                 style={{ transitionDelay: `${index * 150}ms` }}
                 onClick={() => selectPlayer(index)}
               >

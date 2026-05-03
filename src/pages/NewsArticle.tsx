@@ -77,7 +77,7 @@ export default function NewsArticle() {
                 <div className="rounded-2xl border border-white/10 bg-black/30 p-5">
                   <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#00ff87]">
                     <ChevronRight size={16} />
-                    Key Takeaways
+                    Main Notes
                   </div>
                   <div className="space-y-3">
                     {story.highlights.map((item) => (
@@ -107,7 +107,7 @@ export default function NewsArticle() {
               <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-[#00ff87]">Quick Info</p>
               <h2 className="mb-4 text-2xl font-black">News Hub</h2>
               <p className="mb-6 text-sm leading-relaxed text-gray-400">
-                Every article is generated from the same shared news array, so adding or editing posts in one place updates the whole news system.
+                Want to learn more news or innovations? Let's get started!
               </p>
               <Link
                 to="/news"
